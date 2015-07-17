@@ -13,6 +13,8 @@
 #include "Chess.h"
 #include "Game_View.h"
 
+class Game_View;
+
 class Board{
 protected:
     Chess Game_Board[8][8];
@@ -21,7 +23,7 @@ protected:
 public:
     bool Checkmate();
     bool Stalemate();
-    bool Make_Move();
+    void Make_Move();
     void Illegal_Move();
     Board();
     ~Board();

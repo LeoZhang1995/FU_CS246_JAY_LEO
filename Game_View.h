@@ -13,6 +13,8 @@
 #include <string>
 #include "Game_Controller.h"
 
+class Game_Controller;
+
 class Game_View{
 protected:
     Game_Controller *c;

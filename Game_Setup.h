@@ -10,12 +10,15 @@
 #define __Chess_Project__Game_Setup__
 
 #include <stdio.h>
+#include "Record.h"
 
 class Board;
+class Record;
 
 class Game_Setup{
 protected:
     Board *b;
+    Record *r;
 public:
     void Start_Game();
     void End_Game();
