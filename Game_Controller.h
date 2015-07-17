@@ -13,6 +13,8 @@
 #include "Game_Setup.h"
 #include <string>
 
+class Game_Setup;
+
 class Game_Controller{
 protected:
     Game_Setup *s;
