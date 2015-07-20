@@ -22,8 +22,8 @@ public:
     void Make_Move();
     void Undo();
     void Surrender();
-    Move Available_Move();
-    Player();
+    Move Available_Move(std::string Position);
+    Player(std::string Side,Board *b);
     ~Player();
 };
 

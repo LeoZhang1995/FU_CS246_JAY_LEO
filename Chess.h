@@ -20,9 +20,9 @@ protected:
     Board *b;
     std::string Side;
     char Alias;
+    std::string Position;
 public:
     Move Available_Move();
-    Chess();
-    ~Chess();
+    Chess(Board *b,std::string side);
 };
 #endif /* defined(__Chess_Project__Chess__) */
