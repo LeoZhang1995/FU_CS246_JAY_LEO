@@ -16,12 +16,13 @@
 class King:public Chess{
 protected:
     Board *b;
+public:
     std::string Side;
     char Alias;
     std::string Position;
-public:
-    Move Available_Move();
-    King(Board *b,std::string side);
+    Move* Available_Move();
+    bool Moved;
+    King(Board *b, std::string side, std::string position);
 };
 
 #endif /* defined(__Chess_Project__King__) */

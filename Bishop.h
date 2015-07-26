@@ -16,12 +16,12 @@
 class Bishop:public Chess{
 protected:
     Board *b;
-    std::string Side;
+public:
+	std::string Side;
     char Alias;
     std::string Position;
-public:
     Move Available_Move();
-    Bishop(Board *b,std::string side);
+    Bishop(Board *b, std::string side, std::string position);
 };
 
 #endif /* defined(__Chess_Project__Bishop__) */

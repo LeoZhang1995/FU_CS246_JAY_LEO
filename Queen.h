@@ -16,12 +16,12 @@
 class Queen:public Chess{
 protected:
     Board *b;
+public:
     std::string Side;
     char Alias;
     std::string Position;
-public:
-    Move Available_Move();
-    Queen(Board *b,std::string side);
+    Move* Available_Move();
+    Queen(Board *b, std::string side, std::string position);
 };
 
 #endif /* defined(__Chess_Project__Queen__) */

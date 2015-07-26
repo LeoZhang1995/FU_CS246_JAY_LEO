@@ -20,8 +20,8 @@ protected:
     char Alias;
     std::string Position;
 public:
-    Move Available_Move();
-    White_Block(Board *b,std::string side);
+    Move* Available_Move();
+    White_Block(Board *b, std::string side, std::string Position);
 };
 
 #endif /* defined(__Chess_Project__White_Block__) */
