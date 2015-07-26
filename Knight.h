@@ -21,7 +21,8 @@ public:
     char Alias;
     std::string Position;
     Move* Available_Move();
-    Knight(Board *b, std::string side, std::string position);
+    Knight(std::string side, std::string position);
+    void SetBoard(Board *b);
 };
 
 #endif /* defined(__Chess_Project__Knight__) */

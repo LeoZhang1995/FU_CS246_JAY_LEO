@@ -11,8 +11,8 @@
 #include <stdio.h>
 using namespace std;
 
-Pawn::Pawn(Board *b, string side, string position) {
-    this->b = b;
+Pawn::Pawn(string side, string position) {
+    this->b = NULL;
     this->Side = side;
     this->Position = position;
     this->MovingStatus = 0;
@@ -42,7 +42,7 @@ Move* Pawn::Available_Move() {
 	        newVer = '1' + newVerIndex;
 	        newHor = 'a' + newHorIndex;
 	        newPos = newHor + newVer;
-	        available[curIndex] = Move(check, Position, newPos, NULL, captured);
+	        available[curIndex] = new Move(check, Position, newPos, NULL, captured);
 	        curIndex++;
 	    }
 	    if (MovingStatus == 0) {
@@ -54,7 +54,7 @@ Move* Pawn::Available_Move() {
 		        newVer = '1' + newVerIndex;
 	            newHor = 'a' + newHorIndex;
 	            newPos = newHor + newVer;
-	            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+	            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
 	            curIndex++;
 		    }
 		}
@@ -76,7 +76,7 @@ Move* Pawn::Available_Move() {
 	        newVer = '1' + newVerIndex;
 	        newHor = 'a' + newHorIndex;
 	        newPos = newHor + newVer;
-	        available[curIndex] = Move(check, Position, newPos, captures, captured);
+	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
 	        curIndex++;
 	    }
 	    //TODO: capture en passant
@@ -98,7 +98,7 @@ Move* Pawn::Available_Move() {
 	        newVer = '1' + newVerIndex;
 	        newHor = 'a' + newHorIndex;
 	        newPos = newHor + newVer;
-	        available[curIndex] = Move(check, Position, newPos, captures, captured);
+	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
 	        curIndex++;
 	    }
 	} else {
@@ -109,7 +109,7 @@ Move* Pawn::Available_Move() {
 	        newVer = '1' + newVerIndex;
 	        newHor = 'a' + newHorIndex;
 	        newPos = newHor + newVer;
-	        available[curIndex] = Move(check, Position, newPos, NULL, captured);
+	        available[curIndex] = new Move(check, Position, newPos, NULL, captured);
 	        curIndex++;
 	    }
 	    if (MovingStatus == 0) {
@@ -121,7 +121,7 @@ Move* Pawn::Available_Move() {
 		        newVer = '1' + newVerIndex;
 	            newHor = 'a' + newHorIndex;
 	            newPos = newHor + newVer;
-	            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+	            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
 	            curIndex++;
 		    }
 		}
@@ -143,7 +143,7 @@ Move* Pawn::Available_Move() {
 	        newVer = '1' + newVerIndex;
 	        newHor = 'a' + newHorIndex;
 	        newPos = newHor + newVer;
-	        available[curIndex] = Move(check, Position, newPos, captures, captured);
+	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
 	        curIndex++;
 	    }
 	    newVerIndex = ver - 1;
@@ -164,9 +164,15 @@ Move* Pawn::Available_Move() {
 	        newVer = '1' + newVerIndex;
 	        newHor = 'a' + newHorIndex;
 	        newPos = newHor + newVer;
-	        available[curIndex] = Move(check, Position, newPos, captures, captured);
+	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
 	        curIndex++;
 	    }
 	}
     return available;
+}
+
+void Pawn::SetBoard(Board *b) {
+    if (this->b == NULL) {
+        this->b = b;
+    }
 }

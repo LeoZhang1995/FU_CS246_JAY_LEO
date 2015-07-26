@@ -21,7 +21,8 @@ protected:
     std::string Position;
 public:
     Move Available_Move();
-    Black_Block(Board *b, std::string side, std::string position);
+    Black_Block(std::string side, std::string position);
+    void SetBoard(Board *b);
 };
 
 #endif /* defined(__Chess_Project__Black_Block__) */

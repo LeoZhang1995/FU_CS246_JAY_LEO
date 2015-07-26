@@ -11,11 +11,17 @@
 #include <stdio.h>
 using namespace std;
 
-White_Block::White_Block(Board *b, string side, string position) {
-    this->b = b;
+White_Block::White_Block(string side, string position) {
+    this->b = NULL;
     this->Side = side;
     this->Position = position;
     this->Alias = ' ';
 }
 
 Move* White_Block::Available_Move() {}
+
+void White_Block::SetBoard(Board *b) {
+    if (this->b == NULL) {
+        this->b = b;
+    }
+}
