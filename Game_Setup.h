@@ -11,14 +11,18 @@
 
 #include <stdio.h>
 #include "Record.h"
+#include "Player.h"
 
 class Board;
 class Record;
+class Player;
 
 class Game_Setup{
 protected:
     Board *b;
     Record *r;
+    Player *p1;
+    Player *p2;
 public:
     void Start_Game();
     void End_Game();

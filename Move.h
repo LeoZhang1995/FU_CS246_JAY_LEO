@@ -15,13 +15,13 @@
 class Move{
 protected:
     bool Check;
-public:
     int Rating;
     bool Captured();
     std::string Origin();
     std::string Destination();
     std::string Captures();
-    Move();
+public:
+    Move(bool Check,std::string Destination,std::string Captures,bool Captured,int Rating);
     ~Move();
 };
 

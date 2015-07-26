@@ -18,9 +18,10 @@ protected:
     Board *b;
     std::string Side;
     char Alias;
+    std::string Position;
 public:
     Move Available_Move();
-    White_Block();
+    White_Block(Board *b,std::string side);
 };
 
 #endif /* defined(__Chess_Project__White_Block__) */

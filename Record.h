@@ -18,9 +18,6 @@ protected:
     Record *Next;
     Record *Previous;
     Record *Tail;
-public:
-    Record(Board *b);
-    ~Record();
 };
 
 #endif /* defined(__Chess_Project__Record__) */

@@ -23,9 +23,9 @@ protected:
 public:
     bool Checkmate();
     bool Stalemate();
-    void Make_Move();
+    void Make_Move(Move A_Move);
     void Illegal_Move();
-    Board();
+    Board(Game_View *v);
     ~Board();
 };
 #endif /* defined(__Chess_Project__Board__) */
