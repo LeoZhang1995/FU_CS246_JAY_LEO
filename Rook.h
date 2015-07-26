@@ -16,11 +16,12 @@
 class Rook:public Chess{
 protected:
     Board *b;
+public:
     std::string Side;
     char Alias;
-public:
-    Move Available_Move();
-    Rook();
+    string Position;
+    Move* Available_Move();
+    Rook(Board *b, string side);
 };
 
 #endif /* defined(__Chess_Project__Rook__) */

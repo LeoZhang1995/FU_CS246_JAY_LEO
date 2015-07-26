@@ -18,11 +18,9 @@ class Board;
 class Chess{
 protected:
     Board *b;
+public:
     std::string Side;
     char Alias;
-public:
-    Move Available_Move();
-    Chess();
-    ~Chess();
+    virtual Move* Available_Move() = 0;
 };
 #endif /* defined(__Chess_Project__Chess__) */

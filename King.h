@@ -20,7 +20,7 @@ protected:
     char Alias;
 public:
     Move Available_Move();
-    King();
+    King(Board *b, string side);
 };
 
 #endif /* defined(__Chess_Project__King__) */

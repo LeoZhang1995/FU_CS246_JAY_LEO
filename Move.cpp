@@ -6,4 +6,11 @@
 //  Copyright (c) 2015 JiaJun Zhou. All rights reserved.
 //
 
+#include <stdio.h>
 #include "Move.h"
+#include <string>
+
+using namespace std;
+
+Move::Move(bool Check, string Origin, string Destination, string Captures, bool Captured, int Rating): Check(Check), Origin(Origin), Destination(Destination), Captures(Captures), Captured(Captured), Rating(Rating) {}
+//Too fucking long, TODO
