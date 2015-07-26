@@ -11,8 +11,8 @@
 #include <stdio.h>
 using namespace std;
 
-Knight::Knight(Board *b, string side, string position) {
-    this->b = b;
+Knight::Knight(string side, string position) {
+    this->b = NULL;
     this->Side = side;
     this->Position = position;
     this->Alias = (side == "White") ? 'N' : 'n';
@@ -40,7 +40,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -57,7 +57,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -68,7 +68,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -85,7 +85,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -96,7 +96,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -113,7 +113,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -124,7 +124,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -141,7 +141,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -152,7 +152,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -169,7 +169,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -180,7 +180,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -197,7 +197,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -208,7 +208,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -225,7 +225,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -236,7 +236,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
             if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
@@ -253,9 +253,15 @@ Move* Rook::Available_Move() {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
     return available;
+}
+
+void Knight::SetBoard(Board *b) {
+    if (this->b == NULL) {
+        this->b = b;
+    }
 }

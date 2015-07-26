@@ -21,7 +21,8 @@ protected:
     std::string Position;
 public:
     Move* Available_Move();
-    White_Block(Board *b, std::string side, std::string Position);
+    White_Block(std::string side, std::string Position);
+    void SetBoard(Board *b);
 };
 
 #endif /* defined(__Chess_Project__White_Block__) */

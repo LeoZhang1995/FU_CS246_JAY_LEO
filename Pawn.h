@@ -22,7 +22,8 @@ public:
     std::string Position;
     Move* Available_Move();
     int MovingStatus;
-    Pawn(Board *b, std::string side, std::string position);
+    Pawn(std::string side, std::string position);
+    void SetBoard(Board *b);
 };
 
 #endif /* defined(__Chess_Project__Pawn__) */

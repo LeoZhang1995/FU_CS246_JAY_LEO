@@ -11,8 +11,8 @@
 #include <stdio.h>
 using namespace std;
 
-Bishop::Bishop(Board *b, string side, string position) {
-    this->b = b;
+Bishop::Bishop(string side, string position) {
+    this->b = NULL;
     this->Side = side;
     this->Position = position;
     this->Alias = (side == "White") ? 'R' : 'r';
@@ -43,7 +43,7 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor + i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[ver + i][hor + i]->Side == Side) {
             break;
@@ -62,7 +62,7 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor + i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -76,7 +76,7 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor - i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[ver + i][hor - i]->Side == Side) {
             break;
@@ -95,7 +95,7 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor - i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -109,7 +109,7 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor + i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[ver - i][hor + i]->Side == Side) {
             break;
@@ -128,7 +128,7 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor + i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -142,7 +142,7 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor - i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[ver - i][hor - i]->Side == Side) {
             break;
@@ -161,9 +161,15 @@ Move* Bishop::Available_Move() {
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor - i);
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
     return available;
+}
+
+void Bishop::SetBoard(Board *b) {
+    if (this->b == NULL) {
+        this->b = b;
+    }
 }

@@ -17,13 +17,13 @@ class Game_View;
 
 class Board{
 protected:
-    Chess Game_Board[8][8];
+    Chess* Game_Board[8][8];
     char Turn;
     Game_View *v;
 public:
     bool Checkmate();
     bool Stalemate();
-    void Make_Move(Move A_Move);
+    void Make_Move(Move* A_Move);
     void Illegal_Move();
     Board(Game_View *v);
     ~Board();

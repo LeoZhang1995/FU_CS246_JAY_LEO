@@ -11,8 +11,8 @@
 #include <stdio.h>
 using namespace std;
 
-Rook::Rook(Board *b, string side, string position) {
-    this->b = b;
+Rook::Rook(string side, string position) {
+    this->b = NULL;
     this->Side = side;
     this->Position = position;
     this->Moved = false;
@@ -22,7 +22,7 @@ Rook::Rook(Board *b, string side, string position) {
 Move* Rook::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
-    Move *available = new Move[14];
+    Move *available = new Move*[14];
     int curIndex = 0;
     bool check = false;
     bool captured = false;
@@ -41,7 +41,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[ver][i]->Side == Side) {
             break;
@@ -60,7 +60,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -71,7 +71,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[ver][i]->Side == Side) {
             break;
@@ -90,7 +90,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -101,7 +101,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[i][hor]->Side == Side) {
             break;
@@ -120,7 +120,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
@@ -131,7 +131,7 @@ Move* Rook::Available_Move() {
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, NULL, captured);
+            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else if (b->Game_Board[i][hor]->Side == Side) {
             break;
@@ -150,9 +150,15 @@ Move* Rook::Available_Move() {
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            available[curIndex] = Move(check, Position, newPos, captures, captured);
+            available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
     }
     return available;
+}
+
+void Rook::SetBoard(Board *b) {
+    if (this->b == NULL) {
+        this->b = b;
+    }
 }
