@@ -15,6 +15,7 @@ Rook::Rook(Board *b, string side, string position) {
     this->b = b;
     this->Side = side;
     this->Position = position;
+    this->Moved = false;
     this->Alias = (side == "White") ? 'R' : 'r';
 }
 

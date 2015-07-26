@@ -21,6 +21,7 @@ public:
     char Alias;
     std::string Position;
     Move* Available_Move();
+    bool Moved;
     King(Board *b, std::string side, std::string position);
 };
 

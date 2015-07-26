@@ -7,3 +7,15 @@
 //
 
 #include "Black_Block.h"
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+Black_Block::Black_Block(Board *b, string side, string position) {
+    this->b = b;
+    this->Side = side;
+    this->Position = position;
+    this->Alias = '_';
+}
+
+Move* Black_Block::Available_Move() {}
