@@ -21,7 +21,7 @@ public:
     char Alias;
     std::string Position;
     Move* Available_Move();
-    Rook(Board *b, string side);
+    Rook(Board *b, std::string side, std::string position);
 };
 
 #endif /* defined(__Chess_Project__Rook__) */

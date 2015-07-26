@@ -14,12 +14,11 @@
 
 class Move{
     bool Check;
-    int Rating;
     bool Captured;
     std::string Origin;
     std::string Destination;
     std::string Captures;
-    Move(bool Check, string Origin, string Destination, string Captures, bool Captured, int Rating);
+    Move(bool Check, string Origin, string Destination, string Captures, bool Captured);
 };
 
 #endif /* defined(__Chess_Project__Move__) */

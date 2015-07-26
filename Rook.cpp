@@ -11,10 +11,10 @@
 #include <stdio.h>
 using namespace std;
 
-Rook::Rook(Board *b, string side, string Position) {
+Rook::Rook(Board *b, string side, string position) {
     this->b = b;
     this->Side = side;
-    this->Position = Position;
+    this->Position = position;
     this->Alias = (side == "White") ? 'R' : 'r';
 }
 
@@ -28,182 +28,129 @@ Move* Rook::Available_Move() {
     string newPos;
     char newVer;
     char newHor;
-    int rating = 0;
     string captures;
     for (int a = 0; a < 14; ++a)
     {
-        available[a] = Null;
+        available[a] = NULL;
     }
     for (int i = hor + 1; i < 8; ++i)
     {
-        if ((b[ver][i]->Alias == ' ') || (b[ver][i]->Alias == '_')) {
+        if ((b->Game_Board[ver][i]->Alias == ' ') || (b->Game_Board[ver][i]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, Null, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, NULL, captured);
             curIndex++;
-            rating = 0;
-        } else if (b[ver][i]->Side == Side) {
+        } else if (b->Game_Board[ver][i]->Side == Side) {
             break;
         } else {
-            if ((b[ver][i]->Alias == 'Q') || (b[ver][i]->Alias == 'q')) {
-                rating += 10;
+            if ((b->Game_Board[ver][i]->Alias == 'Q') || (b->Game_Board[ver][i]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b[ver][i]->Alias == 'R') || (b[ver][i]->Alias == 'r')) {
-                rating += 6;
+            } else if ((b->Game_Board[ver][i]->Alias == 'R') || (b->Game_Board[ver][i]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b[ver][i]->Alias == 'B') || (b[ver][i]->Alias == 'b')) {
-                rating += 5;
+            } else if ((b->Game_Board[ver][i]->Alias == 'B') || (b->Game_Board[ver][i]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b[ver][i]->Alias == 'N') || (b[ver][i]->Alias == 'n')) {
-                rating += 5;
+            } else if ((b->Game_Board[ver][i]->Alias == 'N') || (b->Game_Board[ver][i]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b[ver][i]->Alias == 'P') || (b[ver][i]->Alias == 'p')) {
-                rating += 1;
+            } else if ((b->Game_Board[ver][i]->Alias == 'P') || (b->Game_Board[ver][i]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, captures, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, captures, captured);
             curIndex++;
-            rating = 0;
         }
     }
     for (int i = hor - 1; i >= 0; --i)
     {
-        if ((b[ver][i]->Alias == ' ') || (b[ver][i]->Alias == '_')) {
+        if ((b->Game_Board[ver][i]->Alias == ' ') || (b->Game_Board[ver][i]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, Null, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, NULL, captured);
             curIndex++;
-            rating = 0;
-        } else if (b[ver][i]->Side == Side) {
+        } else if (b->Game_Board[ver][i]->Side == Side) {
             break;
         } else {
-            if ((b[ver][i]->Alias == 'Q') || (b[ver][i]->Alias == 'q')) {
-                rating += 10;
+            if ((b->Game_Board[ver][i]->Alias == 'Q') || (b->Game_Board[ver][i]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b[ver][i]->Alias == 'R') || (b[ver][i]->Alias == 'r')) {
-                rating += 6;
+            } else if ((b->Game_Board[ver][i]->Alias == 'R') || (b->Game_Board[ver][i]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b[ver][i]->Alias == 'B') || (b[ver][i]->Alias == 'b')) {
-                rating += 5;
+            } else if ((b->Game_Board[ver][i]->Alias == 'B') || (b->Game_Board[ver][i]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b[ver][i]->Alias == 'N') || (b[ver][i]->Alias == 'n')) {
-                rating += 5;
+            } else if ((b->Game_Board[ver][i]->Alias == 'N') || (b->Game_Board[ver][i]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b[ver][i]->Alias == 'P') || (b[ver][i]->Alias == 'p')) {
-                rating += 1;
+            } else if ((b->Game_Board[ver][i]->Alias == 'P') || (b->Game_Board[ver][i]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, captures, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, captures, captured);
             curIndex++;
-            rating = 0;
         }
     }
     for (int i = ver + 1; i < 8; ++i)
     {
-        if ((b[i][hor]->Alias == ' ') || (b[i][hor]->Alias == '_')) {
+        if ((b->Game_Board[i][hor]->Alias == ' ') || (b->Game_Board[i][hor]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, Null, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, NULL, captured);
             curIndex++;
-            rating = 0;
-        } else if (b[i][hor]->Side == Side) {
+        } else if (b->Game_Board[i][hor]->Side == Side) {
             break;
         } else {
-            if ((b[i][hor]->Alias == 'Q') || (b[i][hor]->Alias == 'q')) {
-                rating += 10;
+            if ((b->Game_Board[i][hor]->Alias == 'Q') || (b->Game_Board[i][hor]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b[i][hor]->Alias == 'R') || (b[i][hor]->Alias == 'r')) {
-                rating += 6;
+            } else if ((b->Game_Board[i][hor]->Alias == 'R') || (b->Game_Board[i][hor]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b[i][hor]->Alias == 'B') || (b[i][hor]->Alias == 'b')) {
-                rating += 5;
+            } else if ((b->Game_Board[i][hor]->Alias == 'B') || (b->Game_Board[i][hor]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b[i][hor]->Alias == 'N') || (b[i][hor]->Alias == 'n')) {
-                rating += 5;
+            } else if ((b->Game_Board[i][hor]->Alias == 'N') || (b->Game_Board[i][hor]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b[i][hor]->Alias == 'P') || (b[i][hor]->Alias == 'p')) {
-                rating += 1;
+            } else if ((b->Game_Board[i][hor]->Alias == 'P') || (b->Game_Board[i][hor]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, captures, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, captures, captured);
             curIndex++;
-            rating = 0;
         }
     }
     for (int i = ver - 1; i >= 0; --i)
     {
-        if ((b[i][hor]->Alias == ' ') || (b[i][hor]->Alias == '_')) {
+        if ((b->Game_Board[i][hor]->Alias == ' ') || (b->Game_Board[i][hor]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, Null, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, NULL, captured);
             curIndex++;
-            rating = 0;
-        } else if (b[i][hor]->Side == Side) {
+        } else if (b->Game_Board[i][hor]->Side == Side) {
             break;
         } else {
-            if ((b[i][hor]->Alias == 'Q') || (b[i][hor]->Alias == 'q')) {
-                rating += 10;
+            if ((b->Game_Board[i][hor]->Alias == 'Q') || (b->Game_Board[i][hor]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b[i][hor]->Alias == 'R') || (b[i][hor]->Alias == 'r')) {
-                rating += 6;
+            } else if ((b->Game_Board[i][hor]->Alias == 'R') || (b->Game_Board[i][hor]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b[i][hor]->Alias == 'B') || (b[i][hor]->Alias == 'b')) {
-                rating += 5;
+            } else if ((b->Game_Board[i][hor]->Alias == 'B') || (b->Game_Board[i][hor]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b[i][hor]->Alias == 'N') || (b[i][hor]->Alias == 'n')) {
-                rating += 5;
+            } else if ((b->Game_Board[i][hor]->Alias == 'N') || (b->Game_Board[i][hor]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b[i][hor]->Alias == 'P') || (b[i][hor]->Alias == 'p')) {
-                rating += 1;
+            } else if ((b->Game_Board[i][hor]->Alias == 'P') || (b->Game_Board[i][hor]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = newHor + newVer;
-            if (check) {
-                rating += 20;
-            }
-            available[curIndex] = Move(check, Position, newPos, captures, captured, rating);
+            available[curIndex] = Move(check, Position, newPos, captures, captured);
             curIndex++;
-            rating = 0;
         }
     }
     return available;
