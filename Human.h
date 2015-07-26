@@ -14,7 +14,7 @@
 
 class Human{
 public:
-    void Make_move(Move A_Move);
+    void Make_Move(Move A_Move);
     Human();
 };
 

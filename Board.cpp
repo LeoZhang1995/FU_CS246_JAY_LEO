@@ -70,4 +70,20 @@ void Board::Make_Move(Move* A_Move) {
 	delete A_Move;
 	//TODO: checkmate, stalemate
 	v->Print(Game_Board);
+	if (Turn == 'w') {
+		Turn = 'b';
+	} else {
+		Turn = 'w';
+	}
+}
+
+Board::~Board() {
+	delete v;
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			delete Game_Board[i][j];
+		}
+	}
 }

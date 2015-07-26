@@ -7,3 +7,12 @@
 //
 
 #include "Human.h"
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+Human::Human(std::string side, Board *b): Side(side), b(b), Score(0) {}
+
+void Human::Make_move(Move A_Move) {
+	b->Make_Move(A_Move);
+}
