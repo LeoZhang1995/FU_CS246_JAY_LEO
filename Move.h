@@ -13,9 +13,7 @@
 #include <string>
 
 class Move{
-protected:
     bool Check;
-public:
     int Rating;
     bool Captured;
     std::string Origin;

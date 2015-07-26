@@ -18,9 +18,10 @@ protected:
     Board *b;
     std::string Side;
     char Alias;
+    std::string Position;
 public:
     Move Available_Move();
-    Knight(Board *b, string side);
+    Knight(Board *b,std::string side);
 };
 
 #endif /* defined(__Chess_Project__Knight__) */

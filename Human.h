@@ -10,10 +10,11 @@
 #define __Chess_Project__Human__
 
 #include <stdio.h>
+#include "Move.h"
 
 class Human{
 public:
-    void Make_move();
+    void Make_move(Move A_Move);
     Human();
 };
 

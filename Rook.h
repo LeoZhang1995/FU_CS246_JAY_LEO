@@ -19,7 +19,7 @@ protected:
 public:
     std::string Side;
     char Alias;
-    string Position;
+    std::string Position;
     Move* Available_Move();
     Rook(Board *b, string side);
 };

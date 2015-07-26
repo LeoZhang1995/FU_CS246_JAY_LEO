@@ -18,9 +18,10 @@ protected:
     Board *b;
     std::string Side;
     char Alias;
+    std::string Position;
 public:
     Move Available_Move();
-    Pawn(Board *b, string side);
+    Pawn(Board *b,std::string side);
 };
 
 #endif /* defined(__Chess_Project__Pawn__) */

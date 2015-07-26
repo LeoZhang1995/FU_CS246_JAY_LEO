@@ -10,10 +10,12 @@
 #define __Chess_Project__AI_Two__
 
 #include <stdio.h>
+#include "Move.h"
 
 class AI_Two{
 public:
-    void Make_move();
+    void Make_move(Move A_Move);
+    void Suggest_move();
     AI_Two();
 };
 
