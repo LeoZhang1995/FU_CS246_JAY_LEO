@@ -25,6 +25,7 @@ void Human::Make_Move(Move* A_Move) {
 		} else if ((available[i]->Origin == A_Move->Origin) && (available[i]->Destination == A_Move->Destination)) {
 			delete A_Move;
 			Move* A_Move = new Move(available[i]->Check, available[i]->Origin, available[i]->Destination, available[i]->Captures, available[i]->Captured);
+			A_Move->Other = available[i]->Other;
 			legal = true;
 			break;
 		}

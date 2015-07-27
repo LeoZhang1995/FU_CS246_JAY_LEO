@@ -81,7 +81,7 @@ Board::Board(Game_View *v) {
 void Board::Make_Move(Move* A_Move) {
 	string origin = A_Move->Origin;
 	string destination = A_Move->Destination;
-	int oldVer, oldHor, newVer, newHor;
+	int oldVer, oldHor, newVer, newHor, oldVer_2, oldHor_2, newVer_2, newHor_2;
 	oldVer = origin[1] - '1';
 	oldHor = origin[0] - 'a';
 	newVer = destination[1] - '1';
@@ -104,7 +104,30 @@ void Board::Make_Move(Move* A_Move) {
 	    } else {
 	        Game_Board[oldVer][oldHor] =  new Black_Block("", origin);
 	    }
-		delete A_Move;
+	    if ((Game_Board[newVer][newHor]->Alias == 'K') ||
+			(Game_Board[newVer][newHor]->Alias == 'k')) {
+	    	if (A_Move->Other == "Castling") {
+	    		if (oldVer == newVer) {
+	    			oldVer_2 = oldVer;
+	    			oldHor_2 = (newHor > oldHor) ? 7 : 0;
+	    			newVer_2 = newVer;
+	    			newHor_2 = (oldHor + newHor) / 2;
+	    		} else if (oldHor == newHor) {
+	    			oldHor_2 = oldHor;
+	    			oldVer_2 = (newVer > oldVer) ? 7 : 0;
+	    			newHor_2 = newHor;
+	    			newVer_2 = (oldVer + newVer) / 2;
+	    		}
+	    		delete Game_Board[newVer_2][newHor_2];
+				Game_Board[newVer_2][newHor_2] = Game_Board[oldVer_2][oldHor_2];
+				Game_Board[newVer_2][newHor_2]->Position = destination;
+			    if (((oldVer + oldHor) & 1) == 1) {
+			        Game_Board[oldVer_2][oldHor_2] =  new White_Block("", origin);
+			    } else {
+			        Game_Board[oldVer_2][oldHor_2] =  new Black_Block("", origin);
+			    }
+	    	}
+	    }
 		//TODO: checkmate, stalemate
 		if (Turn == 'w') {
 			v->Print(Game_Board, "Player1 Moved: " + origin + " " + destination);
@@ -113,7 +136,21 @@ void Board::Make_Move(Move* A_Move) {
 			v->Print(Game_Board, "Player2 Moved: " + origin + " " + destination);
 			Turn = 'w';
 		}
+		if ((Game_Board[newVer][newHor]->Alias == 'K') ||
+			(Game_Board[newVer][newHor]->Alias == 'k')) {
+			((King*)(Game_Board[newVer][newHor]))->Moved = true;
+			if (A_Move->Other == "Castling") {
+				((Rook*)(Game_Board[newVer_2][newHor_2]))->Moved = true;
+			}
+		} else if ((Game_Board[newVer][newHor]->Alias == 'R') ||
+			(Game_Board[newVer][newHor]->Alias == 'r')) {
+			((Rook*)(Game_Board[newVer][newHor]))->Moved = true;
+		} else if ((Game_Board[newVer][newHor]->Alias == 'P') ||
+			(Game_Board[newVer][newHor]->Alias == 'p')) {
+			((Pawn*)(Game_Board[newVer][newHor]))->MovingStatus++;
+		}
 	}
+	delete A_Move;
 }
 
 Chess*** Board::GetBoard() {

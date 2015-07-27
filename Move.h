@@ -19,6 +19,7 @@ public:
     std::string Origin;
     std::string Destination;
     std::string Captures;
+    std::string Other;
     Move(bool Check, std::string Origin, std::string Destination, std::string Captures, bool Captured);
 };
 

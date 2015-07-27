@@ -176,11 +176,12 @@ Move** King::Available_Move() {
 	            } else {
 	            	//TODO: get the real positions of king-rook switch
 		            newVer = '1' + ver;
-		            newHor = 'a' + i;
+		            newHor = 'a' + (hor + 2);
 		            newPos = "";
 		            newPos += newHor;
 		            newPos += newVer;
 		            available[curIndex] = new Move(check, Position, newPos, captures, captured);
+		            available[curIndex]->Other = "Castling";
 		            curIndex++;
 		        }
 	        }
@@ -197,11 +198,12 @@ Move** King::Available_Move() {
 	            } else {
 	            	//TODO: get the real positions of king-rook switch
 		            newVer = '1' + ver;
-		            newHor = 'a' + i;
+		            newHor = 'a' + (hor - 2);
 		            newPos = "";
 		            newPos += newHor;
 		            newPos += newVer;
 		            available[curIndex] = new Move(check, Position, newPos, captures, captured);
+		            available[curIndex]->Other = "Castling";
 		            curIndex++;
 		        }
 	        }
@@ -217,12 +219,13 @@ Move** King::Available_Move() {
 	                break;
 	            } else {
 	            	//TODO: get the real positions of king-rook switch
-		            newVer = '1' + ver;
-		            newHor = 'a' + i;
+		            newVer = '1' + (ver + 2);
+		            newHor = 'a' + hor;
 		            newPos = "";
 		            newPos += newHor;
 		            newPos += newVer;
 		            available[curIndex] = new Move(check, Position, newPos, captures, captured);
+		            available[curIndex]->Other = "Castling";
 		            curIndex++;
 		        }
 	        }
@@ -238,12 +241,13 @@ Move** King::Available_Move() {
 	                break;
 	            } else {
 	            	//TODO: get the real positions of king-rook switch
-		            newVer = '1' + ver;
-		            newHor = 'a' + i;
+		            newVer = '1' + (ver -2);
+		            newHor = 'a' + hor;
 		            newPos = "";
 		            newPos += newHor;
 		            newPos += newVer;
 		            available[curIndex] = new Move(check, Position, newPos, captures, captured);
+		            available[curIndex]->Other = "Castling";
 		            curIndex++;
 		        }
 	        }
