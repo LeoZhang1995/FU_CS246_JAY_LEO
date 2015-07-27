@@ -7,6 +7,7 @@
 //
 
 #include "Game_Controller.h"
+#include "Human.h"
 #include <string>
 #include <stdio.h>
 using namespace std;
@@ -17,24 +18,27 @@ Game_Controller::Game_Controller() {
 
 void Game_Controller::Interpreter(string A_String, string B_String, string C_String, string D_String) {
 	if (A_String == "game") {
-		s = new Game_Setup();
 		s->Start_Game();
 		if (B_String == "human") {
-			s->p1 = new Human("White", s->b);
-		} else if (B_String == "computer1") {
-			s->p1 = new AI_One("White", s->b)
+            Player *p1 = new Human("White", s->GetBoard());
+			s->SetP1(p1);
 		}
 		if (C_String == "human") {
-			s->p2 = new Human("Black", s->b);
-		} else if (B_String == "computer1") {
-			s->p2 = new AI_One("Black", s->b)
+            Player *p2 = new Human("Black", s->GetBoard());
+            s->SetP2(p2);
 		}
 		//TODO: Other levels of AI
 	} else if (A_String == "move") {
-		if (s->b->Turn == 'w') {
-			s->p1->Make_Move(new Move(false, B_String, C_String, NULL, false));
+		if (s->GetBoard()->GetTurn() == 'w') {
+            Move *newMove = new Move(false, B_String, C_String, "", false);
+			s->GetP1()->Make_Move(newMove);
 		} else {
-			s->p2->Make_Move(new Move(false, B_String, C_String, NULL, false));
+            Move *newMove = new Move(false, B_String, C_String, "", false);
+			s->GetP2()->Make_Move(newMove);
 		}
 	}
+}
+
+void Game_Controller::Setup(Game_Setup *s) {
+    this->s = s;
 }

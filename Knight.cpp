@@ -18,10 +18,10 @@ Knight::Knight(string side, string position) {
     this->Alias = (side == "White") ? 'N' : 'n';
 }
 
-Move* Rook::Available_Move() {
+Move** Knight::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
-    Move *available = new Move[8];
+    Move** available = new Move*[8];
     for (int a = 0; a < 8; ++a)
     {
         available[a] = NULL;
@@ -35,23 +35,23 @@ Move* Rook::Available_Move() {
     string captures;
     newVerIndex = ver + 1;
     newHorIndex = hor + 2;
-    if ((newVerIndex < 8) && (newHorIndex < 8) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex < 8) && (newHorIndex < 8) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;
@@ -63,23 +63,23 @@ Move* Rook::Available_Move() {
     }
     newVerIndex = ver + 2;
     newHorIndex = hor + 1;
-    if ((newVerIndex < 8) && (newHorIndex < 8) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex < 8) && (newHorIndex < 8) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;
@@ -91,23 +91,23 @@ Move* Rook::Available_Move() {
     }
     newVerIndex = ver - 1;
     newHorIndex = hor - 2;
-    if ((newVerIndex >= 0) && (newHorIndex >= 0) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex >= 0) && (newHorIndex >= 0) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;
@@ -119,23 +119,23 @@ Move* Rook::Available_Move() {
     }
     newVerIndex = ver - 2;
     newHorIndex = hor - 1;
-    if ((newVerIndex >= 0) && (newHorIndex >= 0) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex >= 0) && (newHorIndex >= 0) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;
@@ -147,23 +147,23 @@ Move* Rook::Available_Move() {
     }
     newVerIndex = ver + 1;
     newHorIndex = hor - 2;
-    if ((newVerIndex < 8) && (newHorIndex >= 0) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex < 8) && (newHorIndex >= 0) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;
@@ -175,23 +175,23 @@ Move* Rook::Available_Move() {
     }
     newVerIndex = ver + 2;
     newHorIndex = hor - 1;
-    if ((newVerIndex < 8) && (newHorIndex >= 0) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex < 8) && (newHorIndex >= 0) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;
@@ -203,23 +203,23 @@ Move* Rook::Available_Move() {
     }
     newVerIndex = ver - 1;
     newHorIndex = hor + 2;
-    if ((newVerIndex >= 0) && (newHorIndex < 8) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex >= 0) && (newHorIndex < 8) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;
@@ -231,23 +231,23 @@ Move* Rook::Available_Move() {
     }
     newVerIndex = ver - 2;
     newHorIndex = hor + 1;
-    if ((newVerIndex >= 0) && (newHorIndex < 8) && (b->Game_Board[newVerIndex][newHorIndex]->Side != Side)) {
-        if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == ' ') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == '_')) {
+    if ((newVerIndex >= 0) && (newHorIndex < 8) && (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
+        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == ' ') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == '_')) {
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
         } else {
-            if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'Q') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'q')) {
+            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'R') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'r')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'B') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'b')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'N') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'n')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[newVerIndex][newHorIndex]->Alias == 'P') || (b->Game_Board[newVerIndex][newHorIndex]->Alias == 'p')) {
+            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + newVerIndex;

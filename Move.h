@@ -13,12 +13,13 @@
 #include <string>
 
 class Move{
+public:
     bool Check;
     bool Captured;
     std::string Origin;
     std::string Destination;
     std::string Captures;
-    Move(bool Check, string Origin, string Destination, string Captures, bool Captured);
+    Move(bool Check, std::string Origin, std::string Destination, std::string Captures, bool Captured);
 };
 
 #endif /* defined(__Chess_Project__Move__) */

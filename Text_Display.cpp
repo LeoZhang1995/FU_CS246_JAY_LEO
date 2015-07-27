@@ -16,24 +16,24 @@ void Text_Display::Read_Command(){
         if(command == "game"){
             std::cin>>command1;
             std::cin>>command2;
-            c->Interpreter(command1, command2, command3);
+            c->Interpreter(command, command1, command2, "");
         } else if (command == "move"){
         	std::cin>>command1;
             std::cin>>command2;
-            c->Interpreter(command1, command2, command3);
-};
-
-void Text_Display::Print(std::string A_String){
-    for (int i=7; i>=0 ; i--) {
-        std::cout<<i+1<<" ";
-        for (int j=0; j<=7; j++) {
-            std::cout<<Borad[i][j]->Alias;
+            c->Interpreter(command, command1, command2, "");
         }
-        std::cout<<std::endl;
-        std::cout<<"  abcdefgh"<<std::endl;
     }
 }
 
-Text_Display::Text_Display(){};
+void Text_Display::Print(Chess*** Game_Board){
+    for (int i=7; i>=0 ; i--) {
+        std::cout<<i+1<<" ";
+        for (int j=0; j<=7; j++) {
+            std::cout<<Game_Board[i][j]->Alias;
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl<<"  abcdefgh"<<std::endl;
+}
 
-Text_Display::~Text_Display(){};
+Text_Display::Text_Display(Game_Controller *c): c(c) {}

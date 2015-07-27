@@ -18,10 +18,10 @@ Bishop::Bishop(string side, string position) {
     this->Alias = (side == "White") ? 'R' : 'r';
 }
 
-Move* Bishop::Available_Move() {
+Move** Bishop::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
-    Move *available = new Move[14];
+    Move** available = new Move*[14];
     int curIndex = 0;
     bool check = false;
     bool captured = false;
@@ -38,25 +38,25 @@ Move* Bishop::Available_Move() {
     	if ((ver + i > 7) || (hor + i > 7)) {
     		break;
     	}
-        if ((b->Game_Board[ver + i][hor + i]->Alias == ' ') || (b->Game_Board[ver + i][hor + i]->Alias == '_')) {
+        if ((b->GetBoard()[ver + i][hor + i]->Alias == ' ') || (b->GetBoard()[ver + i][hor + i]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor + i);
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
-        } else if (b->Game_Board[ver + i][hor + i]->Side == Side) {
+        } else if (b->GetBoard()[ver + i][hor + i]->Side == Side) {
             break;
         } else {
-            if ((b->Game_Board[ver + i][hor + i]->Alias == 'Q') || (b->Game_Board[ver + i][hor + i]->Alias == 'q')) {
+            if ((b->GetBoard()[ver + i][hor + i]->Alias == 'Q') || (b->GetBoard()[ver + i][hor + i]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[ver + i][hor + i]->Alias == 'R') || (b->Game_Board[ver + i][hor + i]->Alias == 'r')) {
+            } else if ((b->GetBoard()[ver + i][hor + i]->Alias == 'R') || (b->GetBoard()[ver + i][hor + i]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[ver + i][hor + i]->Alias == 'B') || (b->Game_Board[ver + i][hor + i]->Alias == 'b')) {
+            } else if ((b->GetBoard()[ver + i][hor + i]->Alias == 'B') || (b->GetBoard()[ver + i][hor + i]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[ver + i][hor + i]->Alias == 'N') || (b->Game_Board[ver + i][hor + i]->Alias == 'n')) {
+            } else if ((b->GetBoard()[ver + i][hor + i]->Alias == 'N') || (b->GetBoard()[ver + i][hor + i]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[ver + i][hor + i]->Alias == 'P') || (b->Game_Board[ver + i][hor + i]->Alias == 'p')) {
+            } else if ((b->GetBoard()[ver + i][hor + i]->Alias == 'P') || (b->GetBoard()[ver + i][hor + i]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + (ver + i);
@@ -71,25 +71,25 @@ Move* Bishop::Available_Move() {
     	if ((ver + i > 7) || (hor - i < 0)) {
     		break;
     	}
-        if ((b->Game_Board[ver + i][hor - i]->Alias == ' ') || (b->Game_Board[ver + i][hor - i]->Alias == '_')) {
+        if ((b->GetBoard()[ver + i][hor - i]->Alias == ' ') || (b->GetBoard()[ver + i][hor - i]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor - i);
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
-        } else if (b->Game_Board[ver + i][hor - i]->Side == Side) {
+        } else if (b->GetBoard()[ver + i][hor - i]->Side == Side) {
             break;
         } else {
-            if ((b->Game_Board[ver + i][hor - i]->Alias == 'Q') || (b->Game_Board[ver + i][hor - i]->Alias == 'q')) {
+            if ((b->GetBoard()[ver + i][hor - i]->Alias == 'Q') || (b->GetBoard()[ver + i][hor - i]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[ver + i][hor - i]->Alias == 'R') || (b->Game_Board[ver + i][hor - i]->Alias == 'r')) {
+            } else if ((b->GetBoard()[ver + i][hor - i]->Alias == 'R') || (b->GetBoard()[ver + i][hor - i]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[ver + i][hor - i]->Alias == 'B') || (b->Game_Board[ver + i][hor - i]->Alias == 'b')) {
+            } else if ((b->GetBoard()[ver + i][hor - i]->Alias == 'B') || (b->GetBoard()[ver + i][hor - i]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[ver + i][hor - i]->Alias == 'N') || (b->Game_Board[ver + i][hor - i]->Alias == 'n')) {
+            } else if ((b->GetBoard()[ver + i][hor - i]->Alias == 'N') || (b->GetBoard()[ver + i][hor - i]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[ver + i][hor - i]->Alias == 'P') || (b->Game_Board[ver + i][hor - i]->Alias == 'p')) {
+            } else if ((b->GetBoard()[ver + i][hor - i]->Alias == 'P') || (b->GetBoard()[ver + i][hor - i]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + (ver + i);
@@ -104,25 +104,25 @@ Move* Bishop::Available_Move() {
     	if ((ver - i < 0) || (hor + i > 7)) {
     		break;
     	}
-        if ((b->Game_Board[ver - i][hor + i]->Alias == ' ') || (b->Game_Board[ver - i][hor + i]->Alias == '_')) {
+        if ((b->GetBoard()[ver - i][hor + i]->Alias == ' ') || (b->GetBoard()[ver - i][hor + i]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor + i);
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
-        } else if (b->Game_Board[ver - i][hor + i]->Side == Side) {
+        } else if (b->GetBoard()[ver - i][hor + i]->Side == Side) {
             break;
         } else {
-            if ((b->Game_Board[ver - i][hor + i]->Alias == 'Q') || (b->Game_Board[ver - i][hor + i]->Alias == 'q')) {
+            if ((b->GetBoard()[ver - i][hor + i]->Alias == 'Q') || (b->GetBoard()[ver - i][hor + i]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[ver - i][hor + i]->Alias == 'R') || (b->Game_Board[ver - i][hor + i]->Alias == 'r')) {
+            } else if ((b->GetBoard()[ver - i][hor + i]->Alias == 'R') || (b->GetBoard()[ver - i][hor + i]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[ver - i][hor + i]->Alias == 'B') || (b->Game_Board[ver - i][hor + i]->Alias == 'b')) {
+            } else if ((b->GetBoard()[ver - i][hor + i]->Alias == 'B') || (b->GetBoard()[ver - i][hor + i]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[ver - i][hor + i]->Alias == 'N') || (b->Game_Board[ver - i][hor + i]->Alias == 'n')) {
+            } else if ((b->GetBoard()[ver - i][hor + i]->Alias == 'N') || (b->GetBoard()[ver - i][hor + i]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[ver - i][hor + i]->Alias == 'P') || (b->Game_Board[ver - i][hor + i]->Alias == 'p')) {
+            } else if ((b->GetBoard()[ver - i][hor + i]->Alias == 'P') || (b->GetBoard()[ver - i][hor + i]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + (ver - i);
@@ -137,25 +137,25 @@ Move* Bishop::Available_Move() {
     	if ((ver - i < 0) || (hor - i < 0)) {
     		break;
     	}
-        if ((b->Game_Board[ver - i][hor - i]->Alias == ' ') || (b->Game_Board[ver - i][hor - i]->Alias == '_')) {
+        if ((b->GetBoard()[ver - i][hor - i]->Alias == ' ') || (b->GetBoard()[ver - i][hor - i]->Alias == '_')) {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor - i);
             newPos = newHor + newVer;
             available[curIndex] = new Move(check, Position, newPos, NULL, captured);
             curIndex++;
-        } else if (b->Game_Board[ver - i][hor - i]->Side == Side) {
+        } else if (b->GetBoard()[ver - i][hor - i]->Side == Side) {
             break;
         } else {
-            if ((b->Game_Board[ver - i][hor - i]->Alias == 'Q') || (b->Game_Board[ver - i][hor - i]->Alias == 'q')) {
+            if ((b->GetBoard()[ver - i][hor - i]->Alias == 'Q') || (b->GetBoard()[ver - i][hor - i]->Alias == 'q')) {
                 captures = "Queen";
-            } else if ((b->Game_Board[ver - i][hor - i]->Alias == 'R') || (b->Game_Board[ver - i][hor - i]->Alias == 'r')) {
+            } else if ((b->GetBoard()[ver - i][hor - i]->Alias == 'R') || (b->GetBoard()[ver - i][hor - i]->Alias == 'r')) {
                 captures = "Rook";
-            } else if ((b->Game_Board[ver - i][hor - i]->Alias == 'B') || (b->Game_Board[ver - i][hor - i]->Alias == 'b')) {
+            } else if ((b->GetBoard()[ver - i][hor - i]->Alias == 'B') || (b->GetBoard()[ver - i][hor - i]->Alias == 'b')) {
                 captures = "Bishop";
-            } else if ((b->Game_Board[ver - i][hor - i]->Alias == 'N') || (b->Game_Board[ver - i][hor - i]->Alias == 'n')) {
+            } else if ((b->GetBoard()[ver - i][hor - i]->Alias == 'N') || (b->GetBoard()[ver - i][hor - i]->Alias == 'n')) {
                 captures = "Knight";
-            } else if ((b->Game_Board[ver - i][hor - i]->Alias == 'P') || (b->Game_Board[ver - i][hor - i]->Alias == 'p')) {
+            } else if ((b->GetBoard()[ver - i][hor - i]->Alias == 'P') || (b->GetBoard()[ver - i][hor - i]->Alias == 'p')) {
                 captures = "Pawn";
             }
             newVer = '1' + (ver - i);

@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "Record.h"
 #include "Player.h"
+#include "Board.h"
 
 class Board;
 class Record;
@@ -27,6 +28,11 @@ public:
     void Start_Game();
     void End_Game();
     void Restart_Game();
+    void SetP1(Player *p1);
+    void SetP2(Player *p2);
+    Player* GetP1();
+    Player* GetP2();
+    Board* GetBoard();
     Game_Setup();
     ~Game_Setup();
 };

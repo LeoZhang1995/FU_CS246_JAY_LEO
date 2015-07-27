@@ -18,7 +18,7 @@ Black_Block::Black_Block(string side, string position) {
     this->Alias = '_';
 }
 
-Move* Black_Block::Available_Move() {}
+Move** Black_Block::Available_Move() {return NULL;}
 
 void Black_Block::SetBoard(Board *b) {
     if (this->b == NULL) {

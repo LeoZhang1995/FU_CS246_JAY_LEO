@@ -19,7 +19,8 @@ class Game_Controller{
 protected:
     Game_Setup *s;
 public:
-    void Interpreter(std::string A_String);
+    void Interpreter(std::string A_String, std::string B_String, std::string C_String, std::string D_String);
+    void Setup(Game_Setup *s);
     Game_Controller();
     ~Game_Controller();
 };

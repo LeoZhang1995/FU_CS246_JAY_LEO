@@ -7,6 +7,14 @@
 //
 
 #include "Board.h"
+#include "Bishop.h"
+#include "King.h"
+#include "Knight.h"
+#include "Pawn.h"
+#include "Queen.h"
+#include "Rook.h"
+#include "White_Block.h"
+#include "Black_Block.h"
 #include <string>
 #include <stdio.h>
 using namespace std;
@@ -14,7 +22,12 @@ using namespace std;
 Board::Board(Game_View *v) {
     this->v = v;
     char newHor;
-    Game_Board = new Chess*[8][8];
+    string position;
+    Chess*** Chess_Array = new Chess**[8];
+    for (int i = 0; i < 8; i++) {
+        Chess_Array[i] = new Chess*[8];
+    }
+    Game_Board = Chess_Array;
     Game_Board[0][0] = new Rook("White", "a1");
     Game_Board[0][1] = new Knight("White", "b1");
     Game_Board[0][2] = new Bishop("White", "c1");
@@ -26,24 +39,26 @@ Board::Board(Game_View *v) {
     for (int i = 0; i < 8; ++i)
     {
     	newHor = 'a' + i;
-    	Game_Board[1][i] = new Pawn("White", newHor + '2');
-    	Game_Board[6][i] = new Pawn("Black", newHor + '7');
+        position = newHor + '2';
+    	Game_Board[1][i] = new Pawn("White", position);
+    	Game_Board[6][i] = new Pawn("Black", position);
     }
     for (int i = 0; i < 8; ++i)
     {
     	newHor = 'a' + i;
-    	if ((i + 2) & 1 == 1) {
-    		Game_Board[2][i] = new White_Block(NULL, newHor + '3');
-    		Game_Board[3][i] = new Black_Block(NULL, newHor + '3');
-    		Game_Board[4][i] = new White_Block(NULL, newHor + '3');
-    		Game_Board[5][i] = new Black_Block(NULL, newHor + '3');
+        position = newHor + '3';
+    	if (((i + 2) & 1) == 1) {
+    		Game_Board[2][i] = new White_Block("", position);
+    		Game_Board[3][i] = new Black_Block("", position);
+    		Game_Board[4][i] = new White_Block("", position);
+    		Game_Board[5][i] = new Black_Block("", position);
     	} else {
-    		Game_Board[2][i] = new Black_Block(NULL, newHor + '3');
-    		Game_Board[3][i] = new White_Block(NULL, newHor + '3');
-    		Game_Board[4][i] = new Black_Block(NULL, newHor + '3');
-    		Game_Board[5][i] = new White_Block(NULL, newHor + '3');
+    		Game_Board[2][i] = new Black_Block("", position);
+    		Game_Board[3][i] = new White_Block("", position);
+    		Game_Board[4][i] = new Black_Block("", position);
+    		Game_Board[5][i] = new White_Block("", position);
     	}
-    	Game_Board[1][i] = new Pawn(NULL, newHor + '3');
+    	Game_Board[1][i] = new Pawn("", position);
     }
     Game_Board[7][0] = new Rook("Black", "a8");
     Game_Board[7][1] = new Knight("Black", "b8");
@@ -66,7 +81,11 @@ void Board::Make_Move(Move* A_Move) {
 	newHor = destination[0] - 'a';
 	delete Game_Board[newVer][newHor];
 	Game_Board[newVer][newHor] = Game_Board[oldVer][oldHor];
-	Game_Board[oldVer][oldHor] = ((oldVer + oldHor) & 1 == 1) ? new White_Block(NULL, origin) : new Black_Block(NULL, origin);
+    if (((oldVer + oldHor) & 1) == 1) {
+        Game_Board[oldVer][oldHor] =  new White_Block("", origin);
+    } else {
+        Game_Board[oldVer][oldHor] =  new Black_Block("", origin);
+    }
 	delete A_Move;
 	//TODO: checkmate, stalemate
 	v->Print(Game_Board);
@@ -75,6 +94,20 @@ void Board::Make_Move(Move* A_Move) {
 	} else {
 		Turn = 'w';
 	}
+}
+
+Chess*** Board::GetBoard() {
+    return Game_Board;
+}
+
+char Board::GetTurn() {
+    return Turn;
+}
+
+void Board::SetView(Game_View *v) {
+    if (this->v == NULL) {
+        this->v = v;
+    }
 }
 
 Board::~Board() {
@@ -86,4 +119,5 @@ Board::~Board() {
 			delete Game_Board[i][j];
 		}
 	}
+    delete [] Game_Board;
 }

@@ -13,6 +13,12 @@ using namespace std;
 
 Human::Human(std::string side, Board *b): Side(side), b(b), Score(0) {}
 
-void Human::Make_move(Move A_Move) {
+void Human::Make_Move(Move* A_Move) {
 	b->Make_Move(A_Move);
+}
+
+Move** Human::Available_Move(std::string position) {
+    int ver = position[1] - '1';
+    int hor = position[0] - 'a';
+    return b->GetBoard()[ver][hor]->Available_Move();
 }

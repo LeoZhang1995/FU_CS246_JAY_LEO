@@ -19,12 +19,10 @@ protected:
     int Score;
     Board *b;
 public:
-    void Make_Move();
+    virtual void Make_Move(Move* A_Move) = 0;
     void Undo();
     void Surrender();
-    Move Available_Move(std::string position);
-    Player(std::string side, Board *b);
-    ~Player();
+    virtual Move** Available_Move(std::string position) = 0;
 };
 
 #endif /* defined(__Chess_Project__Player__) */

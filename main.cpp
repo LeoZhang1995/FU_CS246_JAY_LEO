@@ -31,8 +31,12 @@
 #include "Chess.h"
 #include "Move.h"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+int main() {
+    Game_Controller *c = new Game_Controller();
+    Game_View *v = new Text_Display(c);
+    Game_Setup *s = new Game_Setup();
+    c->Setup(s);
+    s->GetBoard()->SetView(v);
+    v->Read_Command();
     return 0;
 }

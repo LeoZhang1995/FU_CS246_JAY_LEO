@@ -12,13 +12,15 @@
 #include <stdio.h>
 #include "Game_Controller.h"
 #include "Game_View.h"
+#include "Chess.h"
 
 class Text_Display:public Game_View{
+protected:
+    Game_Controller *c;
 public:
     void Read_Command();
-    void Print(std::string A_String);
-    Text_Display();
-    ~Text_Display();
+    void Print(Chess*** Game_Board);
+    Text_Display(Game_Controller *c);
 };
 
 #endif /* defined(__Chess_Project__Text_Display__) */

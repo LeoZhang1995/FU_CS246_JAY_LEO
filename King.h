@@ -18,9 +18,8 @@ protected:
     Board *b;
 public:
     std::string Side;
-    char Alias;
     std::string Position;
-    Move* Available_Move();
+    Move** Available_Move();
     bool Moved;
     King(std::string side, std::string position);
     void SetBoard(Board *b);

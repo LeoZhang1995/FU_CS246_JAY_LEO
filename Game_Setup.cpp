@@ -12,26 +12,46 @@
 using namespace std;
 
 Game_Setup::Game_Setup() {
-    this->b = NULL;
+    b = new Board(NULL);
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int j = 0; j < 8; ++j)
+        {
+            b->GetBoard()[i][j]->SetBoard(b);
+        }
+    }
     this->r = NULL;
     this->p1 = NULL;
     this->p2 = NULL;
 }
 
-Game_Setup::Start_Game() {
-	b = new Board();
-	for (int i = 0; i < 8; ++i)
-	{
-		for (int j = 0; j < 8; ++j)
-		{
-			b->Game_Board[i][j]->SetBoard(b);
-		}
-	}
+void Game_Setup::Start_Game() {
+    b->v->Print(b->GetBoard());
 }
 
-Game_Setup::Restart_Game() {
+void Game_Setup::Restart_Game() {
 	delete b;
 	this->Start_Game();
+}
+
+Board* Game_Setup::GetBoard() {
+    return b;
+}
+
+void Game_Setup::SetP1(Player *p1) {
+    this->p1 = p1;
+}
+
+void Game_Setup::SetP2(Player *p2) {
+    this->p2 = p2;
+}
+
+Player* Game_Setup::GetP1() {
+    return p1;
+}
+
+Player* Game_Setup::GetP2() {
+    return p2;
 }
 
 Game_Setup::~Game_Setup() {

@@ -18,7 +18,7 @@ White_Block::White_Block(string side, string position) {
     this->Alias = ' ';
 }
 
-Move* White_Block::Available_Move() {}
+Move** White_Block::Available_Move() {return NULL;}
 
 void White_Block::SetBoard(Board *b) {
     if (this->b == NULL) {

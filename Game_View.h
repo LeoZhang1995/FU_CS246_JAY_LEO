@@ -19,10 +19,8 @@ class Game_View{
 protected:
     Game_Controller *c;
 public:
-    void Read_Command();
-    void Print(std::string A_String);
-    Game_View();
-    ~Game_View();
+    virtual void Read_Command() = 0;
+    virtual void Print(Chess*** Game_Board) = 0;
 };
 
 #endif /* defined(__Chess_Project__Game_View__) */
