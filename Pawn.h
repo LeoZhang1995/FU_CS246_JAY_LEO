@@ -17,8 +17,6 @@ class Pawn:public Chess{
 protected:
     Board *b;
 public:
-    std::string Side;
-    std::string Position;
     Move** Available_Move();
     int MovingStatus;
     Pawn(std::string side, std::string position);

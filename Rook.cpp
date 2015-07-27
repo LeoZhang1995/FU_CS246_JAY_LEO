@@ -22,7 +22,7 @@ Rook::Rook(string side, string position) {
 Move** Rook::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
-    Move** available = new Move*[14];
+    Move** available = new Move*[15];
     int curIndex = 0;
     bool check = false;
     bool captured = false;
@@ -30,7 +30,7 @@ Move** Rook::Available_Move() {
     char newVer;
     char newHor;
     string captures;
-    for (int a = 0; a < 14; ++a)
+    for (int a = 0; a < 15; ++a)
     {
         available[a] = NULL;
     }
@@ -40,26 +40,30 @@ Move** Rook::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver][i]->Side == Side) {
             break;
         } else {
-            if ((b->GetBoard()[ver][i]->Alias == 'Q') || (b->GetBoard()[ver][i]->Alias == 'q')) {
-                captures = "Queen";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'R') || (b->GetBoard()[ver][i]->Alias == 'r')) {
-                captures = "Rook";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'B') || (b->GetBoard()[ver][i]->Alias == 'b')) {
-                captures = "Bishop";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'N') || (b->GetBoard()[ver][i]->Alias == 'n')) {
-                captures = "Knight";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'P') || (b->GetBoard()[ver][i]->Alias == 'p')) {
-                captures = "Pawn";
-            }
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            if ((b->GetBoard()[ver][i]->Alias == 'Q') || (b->GetBoard()[ver][i]->Alias == 'q')) {
+                captures = newPos + "Q";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'R') || (b->GetBoard()[ver][i]->Alias == 'r')) {
+                captures = newPos + "R";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'B') || (b->GetBoard()[ver][i]->Alias == 'b')) {
+                captures = newPos + "B";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'N') || (b->GetBoard()[ver][i]->Alias == 'n')) {
+                captures = newPos + "N";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'P') || (b->GetBoard()[ver][i]->Alias == 'p')) {
+                captures = newPos + "P";
+            }
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -70,26 +74,30 @@ Move** Rook::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver][i]->Side == Side) {
             break;
         } else {
-            if ((b->GetBoard()[ver][i]->Alias == 'Q') || (b->GetBoard()[ver][i]->Alias == 'q')) {
-                captures = "Queen";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'R') || (b->GetBoard()[ver][i]->Alias == 'r')) {
-                captures = "Rook";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'B') || (b->GetBoard()[ver][i]->Alias == 'b')) {
-                captures = "Bishop";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'N') || (b->GetBoard()[ver][i]->Alias == 'n')) {
-                captures = "Knight";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'P') || (b->GetBoard()[ver][i]->Alias == 'p')) {
-                captures = "Pawn";
-            }
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            if ((b->GetBoard()[ver][i]->Alias == 'Q') || (b->GetBoard()[ver][i]->Alias == 'q')) {
+                captures = newPos + "Q";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'R') || (b->GetBoard()[ver][i]->Alias == 'r')) {
+                captures = newPos + "R";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'B') || (b->GetBoard()[ver][i]->Alias == 'b')) {
+                captures = newPos + "B";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'N') || (b->GetBoard()[ver][i]->Alias == 'n')) {
+                captures = newPos + "N";
+            } else if ((b->GetBoard()[ver][i]->Alias == 'P') || (b->GetBoard()[ver][i]->Alias == 'p')) {
+                captures = newPos + "P";
+            }
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -100,26 +108,30 @@ Move** Rook::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[i][hor]->Side == Side) {
             break;
         } else {
-            if ((b->GetBoard()[i][hor]->Alias == 'Q') || (b->GetBoard()[i][hor]->Alias == 'q')) {
-                captures = "Queen";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'R') || (b->GetBoard()[i][hor]->Alias == 'r')) {
-                captures = "Rook";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'B') || (b->GetBoard()[i][hor]->Alias == 'b')) {
-                captures = "Bishop";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'N') || (b->GetBoard()[i][hor]->Alias == 'n')) {
-                captures = "Knight";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'P') || (b->GetBoard()[i][hor]->Alias == 'p')) {
-                captures = "Pawn";
-            }
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            if ((b->GetBoard()[i][hor]->Alias == 'Q') || (b->GetBoard()[i][hor]->Alias == 'q')) {
+                captures = newPos + "Q";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'R') || (b->GetBoard()[i][hor]->Alias == 'r')) {
+                captures = newPos + "R";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'B') || (b->GetBoard()[i][hor]->Alias == 'b')) {
+                captures = newPos + "B";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'N') || (b->GetBoard()[i][hor]->Alias == 'n')) {
+                captures = newPos + "N";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'P') || (b->GetBoard()[i][hor]->Alias == 'p')) {
+                captures = newPos + "P";
+            }
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -130,26 +142,30 @@ Move** Rook::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[i][hor]->Side == Side) {
             break;
         } else {
-            if ((b->GetBoard()[i][hor]->Alias == 'Q') || (b->GetBoard()[i][hor]->Alias == 'q')) {
-                captures = "Queen";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'R') || (b->GetBoard()[i][hor]->Alias == 'r')) {
-                captures = "Rook";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'B') || (b->GetBoard()[i][hor]->Alias == 'b')) {
-                captures = "Bishop";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'N') || (b->GetBoard()[i][hor]->Alias == 'n')) {
-                captures = "Knight";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'P') || (b->GetBoard()[i][hor]->Alias == 'p')) {
-                captures = "Pawn";
-            }
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            if ((b->GetBoard()[i][hor]->Alias == 'Q') || (b->GetBoard()[i][hor]->Alias == 'q')) {
+                captures = newPos + "Q";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'R') || (b->GetBoard()[i][hor]->Alias == 'r')) {
+                captures = newPos + "R";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'B') || (b->GetBoard()[i][hor]->Alias == 'b')) {
+                captures = newPos + "B";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'N') || (b->GetBoard()[i][hor]->Alias == 'n')) {
+                captures = newPos + "N";
+            } else if ((b->GetBoard()[i][hor]->Alias == 'P') || (b->GetBoard()[i][hor]->Alias == 'p')) {
+                captures = newPos + "P";
+            }
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }

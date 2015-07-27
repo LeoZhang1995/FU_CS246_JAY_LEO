@@ -17,8 +17,6 @@ class Bishop:public Chess{
 protected:
     Board *b;
 public:
-	std::string Side;
-    std::string Position;
     Move** Available_Move();
     Bishop(std::string side, std::string position);
     void SetBoard(Board *b);

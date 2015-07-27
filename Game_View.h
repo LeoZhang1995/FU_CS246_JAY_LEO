@@ -20,7 +20,7 @@ protected:
     Game_Controller *c;
 public:
     virtual void Read_Command() = 0;
-    virtual void Print(Chess*** Game_Board) = 0;
+    virtual void Print(Chess*** Game_Board, std::string otherMessage) = 0;
 };
 
 #endif /* defined(__Chess_Project__Game_View__) */

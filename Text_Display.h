@@ -19,7 +19,7 @@ protected:
     Game_Controller *c;
 public:
     void Read_Command();
-    void Print(Chess*** Game_Board);
+    void Print(Chess*** Game_Board, std::string otherMessage);
     Text_Display(Game_Controller *c);
 };
 

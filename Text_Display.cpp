@@ -25,7 +25,10 @@ void Text_Display::Read_Command(){
     }
 }
 
-void Text_Display::Print(Chess*** Game_Board){
+void Text_Display::Print(Chess*** Game_Board, std::string otherMessage) {
+	if (otherMessage != "") {
+		std::cout<<std::endl<<otherMessage<<std::endl<<std::endl;
+	}
     for (int i=7; i>=0 ; i--) {
         std::cout<<i+1<<" ";
         for (int j=0; j<=7; j++) {

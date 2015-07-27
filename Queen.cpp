@@ -21,7 +21,7 @@ Queen::Queen(string side, string position) {
 Move** Queen::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
-    Move** available = new Move*[14];
+    Move** available = new Move*[28];
     int curIndex = 0;
     bool check = false;
     bool captured = false;
@@ -29,7 +29,7 @@ Move** Queen::Available_Move() {
     char newVer;
     char newHor;
     string captures;
-    for (int a = 0; a < 27; ++a)
+    for (int a = 0; a < 28; ++a)
     {
         available[a] = NULL;
     }
@@ -42,8 +42,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor + i);
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver + i][hor + i]->Side == Side) {
             break;
@@ -61,7 +63,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor + i);
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -75,8 +79,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor - i);
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver + i][hor - i]->Side == Side) {
             break;
@@ -94,7 +100,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor - i);
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -108,8 +116,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor + i);
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver - i][hor + i]->Side == Side) {
             break;
@@ -127,7 +137,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor + i);
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -141,8 +153,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor - i);
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver - i][hor - i]->Side == Side) {
             break;
@@ -160,7 +174,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor - i);
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -171,8 +187,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver][i]->Side == Side) {
             break;
@@ -190,7 +208,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -201,8 +221,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[ver][i]->Side == Side) {
             break;
@@ -220,7 +242,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + ver;
             newHor = 'a' + i;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -231,8 +255,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[i][hor]->Side == Side) {
             break;
@@ -250,7 +276,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }
@@ -261,8 +289,10 @@ Move** Queen::Available_Move() {
             //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
-            available[curIndex] = new Move(check, Position, newPos, NULL, captured);
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
+            available[curIndex] = new Move(check, Position, newPos, "", captured);
             curIndex++;
         } else if (b->GetBoard()[i][hor]->Side == Side) {
             break;
@@ -280,7 +310,9 @@ Move** Queen::Available_Move() {
             }
             newVer = '1' + i;
             newHor = 'a' + hor;
-            newPos = newHor + newVer;
+            newPos = "";
+            newPos += newHor;
+            newPos += newVer;
             available[curIndex] = new Move(check, Position, newPos, captures, captured);
             curIndex++;
         }

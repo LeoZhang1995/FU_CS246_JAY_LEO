@@ -16,8 +16,6 @@
 class White_Block:public Chess{
 protected:
     Board *b;
-    std::string Side;
-    std::string Position;
 public:
     White_Block(std::string side, std::string Position);
     Move** Available_Move();

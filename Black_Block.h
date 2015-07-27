@@ -16,8 +16,6 @@
 class Black_Block:public Chess{
 protected:
     Board *b;
-    std::string Side;
-    std::string Position;
 public:
     Black_Block(std::string side, std::string position);
     Move** Available_Move();

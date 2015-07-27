@@ -26,7 +26,7 @@ Game_Setup::Game_Setup() {
 }
 
 void Game_Setup::Start_Game() {
-    b->v->Print(b->GetBoard());
+    b->v->Print(b->GetBoard(), "Game Starts!");
 }
 
 void Game_Setup::Restart_Game() {

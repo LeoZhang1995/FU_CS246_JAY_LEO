@@ -17,6 +17,7 @@
 #include "Black_Block.h"
 #include <string>
 #include <stdio.h>
+#include <iostream>
 using namespace std;
 
 Board::Board(Game_View *v) {
@@ -58,7 +59,6 @@ Board::Board(Game_View *v) {
     		Game_Board[4][i] = new Black_Block("", position);
     		Game_Board[5][i] = new White_Block("", position);
     	}
-    	Game_Board[1][i] = new Pawn("", position);
     }
     Game_Board[7][0] = new Rook("Black", "a8");
     Game_Board[7][1] = new Knight("Black", "b8");
@@ -79,20 +79,32 @@ void Board::Make_Move(Move* A_Move) {
 	oldHor = origin[0] - 'a';
 	newVer = destination[1] - '1';
 	newHor = destination[0] - 'a';
-	delete Game_Board[newVer][newHor];
-	Game_Board[newVer][newHor] = Game_Board[oldVer][oldHor];
-    if (((oldVer + oldHor) & 1) == 1) {
-        Game_Board[oldVer][oldHor] =  new White_Block("", origin);
-    } else {
-        Game_Board[oldVer][oldHor] =  new Black_Block("", origin);
-    }
-	delete A_Move;
-	//TODO: checkmate, stalemate
-	v->Print(Game_Board);
+	string curSide;
 	if (Turn == 'w') {
-		Turn = 'b';
+		curSide = "White";
 	} else {
-		Turn = 'w';
+		curSide = "Black";
+	}
+	if (Game_Board[oldVer][oldHor]->Side != curSide) {
+		cout << Game_Board[oldVer][oldHor]->Side << endl;
+		this->Illegal_Move();
+	} else {
+		delete Game_Board[newVer][newHor];
+		Game_Board[newVer][newHor] = Game_Board[oldVer][oldHor];
+	    if (((oldVer + oldHor) & 1) == 1) {
+	        Game_Board[oldVer][oldHor] =  new White_Block("", origin);
+	    } else {
+	        Game_Board[oldVer][oldHor] =  new Black_Block("", origin);
+	    }
+		delete A_Move;
+		//TODO: checkmate, stalemate
+		if (Turn == 'w') {
+			v->Print(Game_Board, "Player1 Moved: " + origin + " " + destination);
+			Turn = 'b';
+		} else {
+			v->Print(Game_Board, "Player2 Moved: " + origin + " " + destination);
+			Turn = 'w';
+		}
 	}
 }
 
@@ -108,6 +120,10 @@ void Board::SetView(Game_View *v) {
     if (this->v == NULL) {
         this->v = v;
     }
+}
+
+void Board::Illegal_Move() {
+	v->Print(Game_Board, "Move is illegal, please try again");
 }
 
 Board::~Board() {
