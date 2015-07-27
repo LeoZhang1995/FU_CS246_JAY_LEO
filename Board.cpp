@@ -40,14 +40,21 @@ Board::Board(Game_View *v) {
     for (int i = 0; i < 8; ++i)
     {
     	newHor = 'a' + i;
-        position = newHor + '2';
+        position = "";
+        position += newHor;
+        position += '2';
     	Game_Board[1][i] = new Pawn("White", position);
+    	position = "";
+        position += newHor;
+        position += '7';
     	Game_Board[6][i] = new Pawn("Black", position);
     }
     for (int i = 0; i < 8; ++i)
     {
     	newHor = 'a' + i;
-        position = newHor + '3';
+        position = "";
+        position += newHor;
+        position += '3';
     	if (((i + 2) & 1) == 1) {
     		Game_Board[2][i] = new White_Block("", position);
     		Game_Board[3][i] = new Black_Block("", position);
@@ -91,6 +98,7 @@ void Board::Make_Move(Move* A_Move) {
 	} else {
 		delete Game_Board[newVer][newHor];
 		Game_Board[newVer][newHor] = Game_Board[oldVer][oldHor];
+		Game_Board[newVer][newHor]->Position = destination;
 	    if (((oldVer + oldHor) & 1) == 1) {
 	        Game_Board[oldVer][oldHor] =  new White_Block("", origin);
 	    } else {

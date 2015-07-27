@@ -15,7 +15,7 @@ Bishop::Bishop(string side, string position) {
     this->b = NULL;
     this->Side = side;
     this->Position = position;
-    this->Alias = (side == "White") ? 'R' : 'r';
+    this->Alias = (side == "White") ? 'B' : 'b';
 }
 
 Move** Bishop::Available_Move() {
