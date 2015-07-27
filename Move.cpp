@@ -12,5 +12,5 @@
 
 using namespace std;
 
-Move::Move(bool Check, string Origin, string Destination, string Captures, bool Captured, int Rating): Check(Check), Origin(Origin), Destination(Destination), Captures(Captures), Captured(Captured) {}
+Move::Move(bool Check, string Origin, string Destination, string Captures, bool Captured): Check(Check), Origin(Origin), Destination(Destination), Captures(Captures), Captured(Captured) {}
 //Too fucking long, TODO
