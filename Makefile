@@ -1,7 +1,7 @@
 all: pp9k
 
-pp9k: main.o Game_Controller.o Game_View.o Graphical_Display.o Text_Display.o Game_Setup.o AI_Four.o Pawn.o AI_One.o Player.o AI_Three.o Queen.o AI_Two.o Rook.o Bishop.o Human.o Black_Block.o King.o White_Block.o Board.o Knight.o Chess.o Move.o
-	g++ main.o Game_Controller.o Game_View.o Graphical_Display.o Text_Display.o Game_Setup.o AI_Four.o Pawn.o AI_One.o Player.o AI_Three.o Queen.o AI_Two.o Rook.o Bishop.o Human.o Black_Block.o King.o White_Block.o Board.o Knight.o Chess.o Move.o -o pp9k
+pp9k: main.o Game_Controller.o Game_View.o Graphical_Display.o Window.o Text_Display.o Game_Setup.o AI_Four.o Pawn.o AI_One.o Player.o AI_Three.o Queen.o AI_Two.o Rook.o Bishop.o Human.o Black_Block.o King.o White_Block.o Board.o Knight.o Chess.o Move.o
+	g++ main.o Game_Controller.o Game_View.o Graphical_Display.o Window.o Text_Display.o Game_Setup.o AI_Four.o Pawn.o AI_One.o Player.o AI_Three.o Queen.o AI_Two.o Rook.o Bishop.o Human.o Black_Block.o King.o White_Block.o Board.o Knight.o Chess.o Move.o -o pp9k  -lX11 -L/usr/X11/lib -I/usr/X11/include
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -13,7 +13,10 @@ Game_View.o: Game_View.cpp
 	g++ -c Game_View.cpp
 
 Graphical_Display.o: Graphical_Display.cpp
-	g++ -c Graphical_Display.cpp
+	g++ -c Graphical_Display.cpp -lX11 -L/usr/X11/lib -I/usr/X11/include
+
+Window.o: Window.cc
+	g++ -c Window.cc -lX11 -L/usr/X11/lib -I/usr/X11/include
 
 Text_Display.o: Text_Display.cpp
 	g++ -c Text_Display.cpp

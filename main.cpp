@@ -33,7 +33,7 @@
 
 int main() {
     Game_Controller *c = new Game_Controller();
-    Game_View *v = new Text_Display(c);
+    Game_View *v = new Graphical_Display(c);
     Game_Setup *s = new Game_Setup();
     c->Setup(s);
     s->GetBoard()->SetView(v);

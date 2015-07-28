@@ -12,12 +12,19 @@
 #include <stdio.h>
 #include "Game_Controller.h"
 #include "Game_View.h"
+#include "Chess.h"
 
 class Graphical_Display:public Game_View{
+protected:
+    Game_Controller *c;
 public:
     void Read_Command();
-    void Print(std::string A_String);
-    Graphical_Display();
+    void Read_Setup();
+    void Setup_Done();
+    void Read_One_Command();
+    void Checkmate(std::string side);
+    void Print(Chess*** Game_Board, std::string otherMessage);
+    Graphical_Display(Game_Controller *c);
     ~Graphical_Display();
 };
 
