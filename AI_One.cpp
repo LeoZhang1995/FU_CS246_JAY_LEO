@@ -8,42 +8,51 @@
 
 #include "AI_One.h"
 #include <time.h>       /* time */
+#include <stdlib.h>     /* srand, rand */
 
-// void AI_One::Make_move(Move A_Move){
-// 	char chess_array[6]={'K','Q','B','R','N','P'}
-
-// 	/* initialize random seed: */
-//     srand (time(NULL));
-
-//     int random_number=rand() % 6 + 1;
-
+void AI_One::Make_move(Move *A_Move){
+    Move** available = Available_Move(A_Move->Origin);
+    int length = 0;
+    while (available[length]!=NULL) {
+        length++;
+    }
+    srand(time(NULL));                                   // initialize random seed
+    int random_number = rand() % length;
+    b->Make_Move(available[random_number]);
+//        
+//        
+//        
+// 	char chess_array[6]={'K','Q','B','R','N','P'};
+//    srand(time(NULL));                                   // initialize random seed
+//    int random_number = rand() % 6 + 1;
 // 	char RandomChess = chess_array[random_number];
-
-// 	if (RandomChess ='K')
+// 	if (RandomChess =='K')
 // 	{
 // 		/* code */
-// 	}else if (RandomChess ='Q')
+// 	}else if (RandomChess =='Q')
 // 	{
 // 		/* code */
-// 	}else if (RandomChess ='B')
+// 	}else if (RandomChess =='B')
 // 	{
 // 		/* code */
-// 	}else if (RandomChess ='R')
+// 	}else if (RandomChess =='R')
 // 	{
 // 		/* code */
-// 	}else if (RandomChess ='N')
+// 	}else if (RandomChess =='N')
 // 	{
 // 		/* code */
-// 	}else(RandomChess ='P')
-// 	{
+// 	}else if (RandomChess =='P')
+//    {
 // 		/* code */
 // 	}
-// }
+}
 
-// void AI_One::Suggest_move(){
+AI_One::AI_One(std::string side, Board *b): Side(side), b(b), Score(0) {}
 
+void AI_One::Suggest_move(){}
 
-
-// }
-
-// AI_One::AI_One();
+Move** AI_One::Available_Move(std::string position) {
+    int ver = position[1] - '1';
+    int hor = position[0] - 'a';
+    return b->GetBoard()[ver][hor]->Available_Move();
+}

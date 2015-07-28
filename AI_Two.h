@@ -11,8 +11,9 @@
 
 #include <stdio.h>
 #include "Move.h"
+#include "Player.h"
 
-class AI_Two{
+class AI_Two:public Player{
 public:
     void Make_move(Move A_Move);
     void Suggest_move();

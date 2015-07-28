@@ -11,12 +11,18 @@
 
 #include <stdio.h>
 #include "Move.h"
+#include "Board.h"
 
-class AI_One{
+class AI_One:public Player{
+protected:
+    std::string Side;
+    int Score;
+    Board *b;
 public:
-    void Make_move(Move A_Move);
+    void Make_move(Move *A_Move);
+    Move** Available_Move(std::string position);
     void Suggest_move();
-    AI_One();
+    AI_One(std::string side, Board *b);
 };
 
 #endif /* defined(__Chess_Project__AI_One__) */
