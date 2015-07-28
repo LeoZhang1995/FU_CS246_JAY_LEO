@@ -161,6 +161,13 @@ void Game_Controller::Interpreter(string A_String, string B_String, string C_Str
 	} else if ((A_String == "Q") || (A_String == "R") ||
 		(A_String == "N") || (A_String == "B")) {
 		s->GetBoard()->UpdatePawn(A_String);
+	} else if (A_String == "resign") {
+		s->Surrender();
+	} else if (A_String == "setup") {
+		s->Board_Setup();
+	} else if ((A_String == "+") || (A_String == "-") ||
+		(A_String == "=") || (A_String == "done")) {
+		s->ModifyBoard(A_String, B_String, C_String, D_String);
 	}
 }
 
@@ -172,6 +179,16 @@ void Game_Controller::End_Game() {
     s->End_Game();
 }
 
+void Game_Controller::Setup_Done() {
+	s->Setup_Done();
+}
+
 Game_Setup* Game_Controller::GetSetup() {
 	return s;
+}
+
+Game_Controller::~Game_Controller() {
+    if (s != NULL) {
+    	delete s;
+    }
 }

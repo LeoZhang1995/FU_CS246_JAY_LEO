@@ -44,6 +44,18 @@ void Game_Setup::End_Game() {
 	this->Restart_Game();
 }
 
+void Game_Setup::Surrender() {
+	string side = (b->GetTurn() == 'w') ? "White" : "Black";
+	if (side == "White") {
+		p2->IncreaseScore();
+		b->Surrender("White");
+	} else {
+		p1->IncreaseScore();
+		b->Surrender("Black");
+	}
+	this->Restart_Game();
+}
+
 Board* Game_Setup::GetBoard() {
     return b;
 }
@@ -54,6 +66,25 @@ void Game_Setup::SetP1(Player *p1) {
 
 void Game_Setup::SetP2(Player *p2) {
     this->p2 = p2;
+}
+
+void Game_Setup::Board_Setup() {
+	b->Board_Setup();
+}
+
+void Game_Setup::ModifyBoard(string A_String, string B_String, string C_String, string D_String) {
+	b->ModifyBoard(A_String, B_String, C_String, D_String);
+}
+
+void Game_Setup::Setup_Done() {
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			b->GetBoard()[i][j]->SetBoard(b);
+		}
+	}
+	b->Setup_Done();
 }
 
 Player* Game_Setup::GetP1() {

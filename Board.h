@@ -34,6 +34,10 @@ public:
     void SetTurn(char turn);
     void UpdatePawn(std::string updateTo);
     void Restart_Game();
+    void Surrender(std::string side);
+    void Board_Setup();
+    void ModifyBoard(std::string A_String, std::string B_String, std::string C_String, std::string D_String);
+    void Setup_Done();
     Board(Game_View *v);
     ~Board();
 };

@@ -38,5 +38,5 @@ int main() {
     c->Setup(s);
     s->GetBoard()->SetView(v);
     v->Read_Command();
-    return 0;
+    delete c;
 }

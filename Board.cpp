@@ -857,6 +857,143 @@ bool Board::Checkmate() {
 	return true;
 }
 
+void Board::Surrender(string side) {
+	string winner = (side == "White") ? "Black" : "White";
+	v->Print(NULL, winner + " Wins.");
+}
+
+void Board::Board_Setup() {
+	char ver, hor;
+	string pos = "";
+	for (int i = 0; i < 8; ++i)
+    {
+    	for (int j = 0; j < 8; ++j)
+    	{
+    		pos = "";
+    		delete Game_Board[i][j];
+    		ver = '1' + i;
+    		hor = 'a' + j;
+    		pos += hor;
+    		pos += ver;
+    		if ((i + j) % 2 == 0) {
+				Game_Board[i][j] = new Black_Block("", pos);
+			} else {
+				Game_Board[i][j] = new White_Block("", pos);
+			}
+    	}
+    }
+    v->Read_Setup();
+}
+
+void Board::ModifyBoard(string A_String, string B_String, string C_String, string D_String) {
+	int ver, hor;
+	string pos = "";
+	if (A_String == "+") {
+		ver = C_String[1] - '1';
+		hor = C_String[0] - 'a';
+		if ((Game_Board[ver][hor]->Alias == ' ') || (Game_Board[ver][hor]->Alias == '_')) {
+			delete Game_Board[ver][hor];
+			if (B_String == "K") {
+				Game_Board[ver][hor] = new King("White", C_String);
+			} else if (B_String == "k") {
+				Game_Board[ver][hor] = new King("Black", C_String);
+			} else if (B_String == "Q") {
+				Game_Board[ver][hor] = new Queen("White", C_String);
+			} else if (B_String == "q") {
+				Game_Board[ver][hor] = new Queen("Black", C_String);
+			} else if (B_String == "N") {
+				Game_Board[ver][hor] = new Knight("White", C_String);
+			} else if (B_String == "n") {
+				Game_Board[ver][hor] = new Knight("Black", C_String);
+			} else if (B_String == "R") {
+				Game_Board[ver][hor] = new Rook("White", C_String);
+			} else if (B_String == "r") {
+				Game_Board[ver][hor] = new Rook("Black", C_String);
+			} else if (B_String == "B") {
+				Game_Board[ver][hor] = new Bishop("White", C_String);
+			} else if (B_String == "b") {
+				Game_Board[ver][hor] = new Bishop("Black", C_String);
+			} else if (B_String == "P") {
+				Game_Board[ver][hor] = new Pawn("White", C_String);
+			} else if (B_String == "p") {
+				Game_Board[ver][hor] = new Pawn("Black", C_String);
+			}
+		}
+		v->Print(Game_Board, "");
+	} else if (A_String == "-") {
+		ver = B_String[1] - '1';
+		hor = B_String[0] - 'a';
+		pos += hor;
+		pos += ver;
+		delete Game_Board[ver][hor];
+		if ((ver + hor) % 2 == 0) {
+			Game_Board[ver][hor] = new Black_Block("", pos);
+		} else {
+			Game_Board[ver][hor] = new White_Block("", pos);
+		}
+		v->Print(Game_Board, "");
+	} else if (A_String == "=") {
+		if (B_String == "White") {
+			Turn = 'w';
+		} else {
+			Turn = 'b';
+		}
+	} else if (A_String == "done") {
+		v->Setup_Done();
+	}
+}
+
+void Board::Setup_Done() {
+	bool valid = true;
+	int wKing = 0;
+	int bKing = 0;
+	for (int i = 0; i < 8; ++i)
+	{
+		if ((Game_Board[7][i]->Alias == 'P') || (Game_Board[7][i]->Alias == 'p') ||
+			(Game_Board[0][i]->Alias == 'P') || (Game_Board[0][i]->Alias == 'p')) {
+			valid = false;
+			break;
+		}
+	}
+	if (!valid) {
+		v->Read_Setup();
+	} else {
+		for (int i = 0; i < 8; ++i)
+		{
+			if (!valid) {
+				break;
+			}
+			for (int j = 0; j < 8; ++j)
+			{
+				if (Game_Board[i][j]->Alias == 'K') {
+					wKing++;
+					if (wKing > 1) {
+						valid = false;
+						break;
+					}
+				} else if (Game_Board[i][j]->Alias == 'k') {
+					bKing++;
+					if (bKing > 1) {
+						valid = false;
+						break;
+					}
+				}
+			}
+		}
+		if ((wKing != 1) || (bKing != 1)) {
+			valid = false;
+		}
+		if (!valid) {
+			v->Read_Setup();
+		} else {
+			if (Check('K') || Check('k')) {
+				valid = false;
+				v->Read_Setup();
+			}
+		}
+	}
+}
+
 Board::~Board() {
 	delete v;
 	for (int i = 0; i < 8; ++i)
@@ -865,6 +1002,7 @@ Board::~Board() {
 		{
 			delete Game_Board[i][j];
 		}
+		delete [] Game_Board[i];
 	}
     delete [] Game_Board;
 }

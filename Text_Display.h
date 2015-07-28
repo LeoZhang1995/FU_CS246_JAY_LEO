@@ -20,6 +20,8 @@ protected:
 public:
     void Read_Command();
     void Read_One_Command();
+    void Read_Setup();
+    void Setup_Done();
     void Print(Chess*** Game_Board, std::string otherMessage);
     void Checkmate(std::string side);
     Text_Display(Game_Controller *c);
