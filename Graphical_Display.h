@@ -13,10 +13,12 @@
 #include "Game_Controller.h"
 #include "Game_View.h"
 #include "Chess.h"
+#include "Window.h"
 
 class Graphical_Display:public Game_View{
 protected:
     Game_Controller *c;
+    Xwindow* w;
     std::string Type1;
     std::string Type2;
 public:
