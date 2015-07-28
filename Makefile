@@ -13,14 +13,10 @@ Game_View.o: Game_View.cpp
 	g++ -c -g Game_View.cpp
 
 Graphical_Display.o: Graphical_Display.cpp
-<<<<<<< HEAD
 	g++ -c Graphical_Display.cpp -lX11 -L/usr/X11/lib -I/usr/X11/include
 
 Window.o: Window.cc
 	g++ -c Window.cc -lX11 -L/usr/X11/lib -I/usr/X11/include
-=======
-	g++ -c -g Graphical_Display.cpp
->>>>>>> d5b4aea5f6b097a929f1080869739ad72cf399b9
 
 Text_Display.o: Text_Display.cpp
 	g++ -c -g Text_Display.cpp

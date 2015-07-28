@@ -17,6 +17,8 @@
 class Graphical_Display:public Game_View{
 protected:
     Game_Controller *c;
+    std::string Type1;
+    std::string Type2;
 public:
     void Read_Command();
     void Read_Setup();
