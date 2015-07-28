@@ -10,6 +10,7 @@
 #define __Chess_Project__Text_Display__
 
 #include <stdio.h>
+#include <string.h>
 #include "Game_Controller.h"
 #include "Game_View.h"
 #include "Chess.h"
@@ -17,6 +18,8 @@
 class Text_Display:public Game_View{
 protected:
     Game_Controller *c;
+    std::string Type1;
+    std::string Type2;
 public:
     void Read_Command();
     void Read_One_Command();

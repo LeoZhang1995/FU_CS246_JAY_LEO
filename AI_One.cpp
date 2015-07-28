@@ -9,16 +9,53 @@
 #include "AI_One.h"
 #include <time.h>       /* time */
 #include <stdlib.h>     /* srand, rand */
+#include <iostream>
+#include <stdio.h>
+using namespace std;
 
-void AI_One::Make_move(Move *A_Move){
-    Move** available = Available_Move(A_Move->Origin);
-    int length = 0;
-    while (available[length]!=NULL) {
-        length++;
+void AI_One::Make_Move(Move *A_Move){
+    Move** available = new Move* [137];
+    for (int i = 0; i < 137; ++i)
+    {
+    	available[i] = NULL;
     }
+    cout << "FUCK" << endl;
+    int curIndex = 0;
+    int singleIndex = 0;
+    Move** singleAvailable;
+    int length = 0;
+    int numChess = 0;
+    for (int i = 0; i < 8; ++i)
+    {
+    	for (int j = 0; j < 8; ++j)
+    	{
+    		if (b->GetBoard()[i][j]->Side == Side) {
+    			singleIndex = 0;
+    			++numChess;
+    			singleAvailable = b->GetBoard()[i][j]->Available_Move();
+    			if (singleAvailable == NULL) {
+					continue;
+				}
+    			while (singleAvailable[singleIndex] != NULL) {
+    				available[curIndex] = new Move(singleAvailable[singleIndex]->Check, singleAvailable[singleIndex]->Origin, singleAvailable[singleIndex]->Destination, singleAvailable[singleIndex]->Captures, singleAvailable[singleIndex]->Captured);
+    				delete singleAvailable[singleIndex];
+    				curIndex++;
+    				singleIndex++;
+    			}
+    			delete [] singleAvailable;
+    		}
+    	}
+    }
+    length = curIndex;
     srand(time(NULL));                                   // initialize random seed
     int random_number = rand() % length;
-    b->Make_Move(available[random_number]);
+    Move* moveChosen = new Move(available[random_number]->Check, available[random_number]->Origin, available[random_number]->Destination, available[random_number]->Captures, available[random_number]->Captured);
+    for (int i = 0; i < length; ++i)
+    {
+    	delete available[i];
+    }
+    delete [] available;
+    b->Make_Move(moveChosen);
 //        
 //        
 //        
@@ -49,10 +86,16 @@ void AI_One::Make_move(Move *A_Move){
 
 AI_One::AI_One(std::string side, Board *b): Side(side), b(b), Score(0) {}
 
-void AI_One::Suggest_move(){}
+Move** AI_One::Available_Move(std::string position) { return NULL; }
 
-Move** AI_One::Available_Move(std::string position) {
-    int ver = position[1] - '1';
-    int hor = position[0] - 'a';
-    return b->GetBoard()[ver][hor]->Available_Move();
+void AI_One::IncreaseScore() {
+	Score++;
+}
+
+int AI_One::GetScore() {
+	return Score;
+}
+
+string AI_One::GetSide() {
+	return Side;
 }

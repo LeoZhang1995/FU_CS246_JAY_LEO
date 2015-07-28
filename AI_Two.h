@@ -14,10 +14,17 @@
 #include "Player.h"
 
 class AI_Two:public Player{
+protected:
+    std::string Side;
+    int Score;
+    Board *b;
 public:
-    void Make_move(Move A_Move);
-    void Suggest_move();
-    AI_Two();
+    void Make_Move(Move *A_Move);
+    void IncreaseScore();
+    int GetScore();
+    std::string GetSide();
+    Move** Available_Move(std::string position);
+    AI_Two(std::string side, Board *b);
 };
 
 #endif /* defined(__Chess_Project__AI_Two__) */

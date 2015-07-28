@@ -11,7 +11,7 @@
 #include <string>
 using namespace std;
 
-void Text_Display::Read_Command(){
+void Text_Display::Read_Command() {
     std::string command, command1, command2, command3;
     while (true) {
     	std::cin>>command;
@@ -24,11 +24,27 @@ void Text_Display::Read_Command(){
         if (command == "game") {
             std::cin>>command1;
             std::cin>>command2;
+            Type1 = command1;
+            Type2 = command2;
             c->Interpreter(command, command1, command2, "");
         } else if (command == "move") {
-        	std::cin>>command1;
-            std::cin>>command2;
-            c->Interpreter(command, command1, command2, "");
+        	if (c->GetSetup()->GetBoard()->GetTurn() == 'w') {
+        		if (Type1 == "human") {
+        			std::cin>>command1;
+		            std::cin>>command2;
+		            c->Interpreter(command, command1, command2, "");
+        		} else {
+        			c->Interpreter(command, "", "", "");
+        		}
+        	} else {
+        		if (Type2 == "human") {
+		        	std::cin>>command1;
+		            std::cin>>command2;
+		            c->Interpreter(command, command1, command2, "");
+		        } else {
+		        	c->Interpreter(command, "", "", "");
+		        }
+	        }
         } else if (command == "resign") {
             c->Interpreter(command, "", "", "");
         } else if (command == "setup") {
@@ -61,12 +77,29 @@ void Text_Display::Setup_Done() {
 }
 
 void Text_Display::Read_One_Command(){
-	std::string command;
-	std::cin >> command;
-	if ((command == "Q") || (command == "R") ||
-    	(command == "N") || (command == "B")) {
-    	c->Interpreter(command, "", "", "");
-    }
+	if (c->GetSetup()->GetBoard()->GetTurn() == 'w') {
+		if (Type1 != "human") {
+			c->Interpreter("Q", "", "", "");
+		} else {
+			std::string command;
+			std::cin >> command;
+			if ((command == "Q") || (command == "R") ||
+		    	(command == "N") || (command == "B")) {
+		    	c->Interpreter(command, "", "", "");
+		    }
+		}
+	} else {
+		if (Type2 != "human") {
+			c->Interpreter("Q", "", "", "");
+		} else {
+			std::string command;
+			std::cin >> command;
+			if ((command == "Q") || (command == "R") ||
+		    	(command == "N") || (command == "B")) {
+		    	c->Interpreter(command, "", "", "");
+		    }
+		}
+	}
 }
 
 void Text_Display::Print(Chess*** Game_Board, std::string otherMessage) {
