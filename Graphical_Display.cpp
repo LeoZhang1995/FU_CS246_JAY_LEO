@@ -260,12 +260,16 @@ void Graphical_Display::Print(Chess*** Game_Board, std::string otherMessage) {
     }
 }
 
-void Graphical_Display::Checkmate(std::string side) {;
+void Graphical_Display::Checkmate(std::string side) {
     
     //string message = "Checkmate! " + side +  " Wins";
     //w.drawString(50, 450 + 25, message, Xwindow::Black);
     
     c->End_Game();
+}
+
+void Graphical_Display::Stalemate() {
+    c->Stalemate();
 }
 
 Graphical_Display::Graphical_Display(Game_Controller *c): c(c) {}

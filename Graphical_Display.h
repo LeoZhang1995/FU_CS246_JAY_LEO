@@ -25,6 +25,7 @@ public:
     void Setup_Done();
     void Read_One_Command();
     void Checkmate(std::string side);
+    void Stalemate();
     void Print(Chess*** Game_Board, std::string otherMessage);
     Graphical_Display(Game_Controller *c);
     ~Graphical_Display();
