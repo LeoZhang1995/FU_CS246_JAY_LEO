@@ -19,7 +19,9 @@ protected:
     Game_Controller *c;
 public:
     void Read_Command();
+    void Read_One_Command();
     void Print(Chess*** Game_Board, std::string otherMessage);
+    void Checkmate(std::string side);
     Text_Display(Game_Controller *c);
 };
 

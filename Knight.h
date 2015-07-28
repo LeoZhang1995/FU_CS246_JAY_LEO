@@ -18,6 +18,7 @@ protected:
     Board *b;
 public:
     Move** Available_Move();
+    Chess* CopyChess();
     Knight(std::string side, std::string position);
     void SetBoard(Board *b);
 };

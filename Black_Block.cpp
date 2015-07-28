@@ -18,6 +18,11 @@ Black_Block::Black_Block(string side, string position) {
     this->Alias = '_';
 }
 
+Chess* Black_Block::CopyChess() {
+	Chess *chess = new Black_Block(Side, Position);
+	return chess;
+}
+
 Move** Black_Block::Available_Move() {return NULL;}
 
 void Black_Block::SetBoard(Board *b) {

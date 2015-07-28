@@ -22,6 +22,7 @@ public:
     std::string Side;
     char Alias;
     virtual Move** Available_Move() = 0;
+    virtual Chess* CopyChess() = 0;
     std::string Position;
     virtual void SetBoard(Board *b) = 0;
 };

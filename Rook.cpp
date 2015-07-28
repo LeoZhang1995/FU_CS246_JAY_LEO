@@ -9,6 +9,7 @@
 #include "Rook.h"
 #include <string>
 #include <stdio.h>
+#include <iostream>
 using namespace std;
 
 Rook::Rook(string side, string position) {
@@ -19,10 +20,18 @@ Rook::Rook(string side, string position) {
     this->Alias = (side == "White") ? 'R' : 'r';
 }
 
+Chess* Rook::CopyChess() {
+    Chess *chess = new Rook(Side, Position);
+    ((Rook*)(chess))->Moved = Moved;
+    return chess;
+}
+
 Move** Rook::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
     Move** available = new Move*[15];
+    Move* test;
+    int testResult;
     int curIndex = 0;
     bool check = false;
     bool captured = false;
@@ -43,8 +52,18 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                continue;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
+            }
         } else if (b->GetBoard()[ver][i]->Side == Side) {
             break;
         } else {
@@ -53,19 +72,19 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            if ((b->GetBoard()[ver][i]->Alias == 'Q') || (b->GetBoard()[ver][i]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'R') || (b->GetBoard()[ver][i]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'B') || (b->GetBoard()[ver][i]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'N') || (b->GetBoard()[ver][i]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'P') || (b->GetBoard()[ver][i]->Alias == 'p')) {
-                captures = newPos + "P";
+            captures = newPos;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                break;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
             }
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
         }
     }
     for (int i = hor - 1; i >= 0; --i)
@@ -77,8 +96,18 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                continue;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
+            }
         } else if (b->GetBoard()[ver][i]->Side == Side) {
             break;
         } else {
@@ -87,19 +116,19 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            if ((b->GetBoard()[ver][i]->Alias == 'Q') || (b->GetBoard()[ver][i]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'R') || (b->GetBoard()[ver][i]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'B') || (b->GetBoard()[ver][i]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'N') || (b->GetBoard()[ver][i]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[ver][i]->Alias == 'P') || (b->GetBoard()[ver][i]->Alias == 'p')) {
-                captures = newPos + "P";
+            captures = newPos;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                break;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
             }
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
         }
     }
     for (int i = ver + 1; i < 8; ++i)
@@ -111,8 +140,18 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                continue;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
+            }
         } else if (b->GetBoard()[i][hor]->Side == Side) {
             break;
         } else {
@@ -121,19 +160,19 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            if ((b->GetBoard()[i][hor]->Alias == 'Q') || (b->GetBoard()[i][hor]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'R') || (b->GetBoard()[i][hor]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'B') || (b->GetBoard()[i][hor]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'N') || (b->GetBoard()[i][hor]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'P') || (b->GetBoard()[i][hor]->Alias == 'p')) {
-                captures = newPos + "P";
+            captures = newPos;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                break;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
             }
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
         }
     }
     for (int i = ver - 1; i >= 0; --i)
@@ -145,8 +184,18 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                continue;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
+            }
         } else if (b->GetBoard()[i][hor]->Side == Side) {
             break;
         } else {
@@ -155,22 +204,26 @@ Move** Rook::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            if ((b->GetBoard()[i][hor]->Alias == 'Q') || (b->GetBoard()[i][hor]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'R') || (b->GetBoard()[i][hor]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'B') || (b->GetBoard()[i][hor]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'N') || (b->GetBoard()[i][hor]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[i][hor]->Alias == 'P') || (b->GetBoard()[i][hor]->Alias == 'p')) {
-                captures = newPos + "P";
+            captures = newPos;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 0) {
+                break;
+            } else if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else {
+                available[curIndex] = test;
+                curIndex++;
             }
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
         }
     }
-    return available;
+    if (curIndex == 0) {
+        return NULL;
+    } else {
+        return available;
+    }
 }
 
 void Rook::SetBoard(Board *b) {

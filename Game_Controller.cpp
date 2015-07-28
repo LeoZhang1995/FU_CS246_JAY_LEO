@@ -36,9 +36,20 @@ void Game_Controller::Interpreter(string A_String, string B_String, string C_Str
             Move *newMove = new Move(false, B_String, C_String, "", false);
 			s->GetP2()->Make_Move(newMove);
 		}
+	} else if ((A_String == "Q") || (A_String == "R") ||
+		(A_String == "N") || (A_String == "B")) {
+		s->GetBoard()->UpdatePawn(A_String);
 	}
 }
 
 void Game_Controller::Setup(Game_Setup *s) {
     this->s = s;
+}
+
+void Game_Controller::End_Game() {
+    s->End_Game();
+}
+
+Game_Setup* Game_Controller::GetSetup() {
+	return s;
 }

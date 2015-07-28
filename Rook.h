@@ -18,6 +18,7 @@ protected:
     Board *b;
 public:
     Move** Available_Move();
+    Chess* CopyChess();
     bool Moved;
     Rook(std::string side, std::string position);
     void SetBoard(Board *b);
