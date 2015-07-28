@@ -46,7 +46,6 @@ Move** Rook::Available_Move() {
     for (int i = hor + 1; i < 8; ++i)
     {
         if ((b->GetBoard()[ver][i]->Alias == ' ') || (b->GetBoard()[ver][i]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = "";
@@ -90,7 +89,6 @@ Move** Rook::Available_Move() {
     for (int i = hor - 1; i >= 0; --i)
     {
         if ((b->GetBoard()[ver][i]->Alias == ' ') || (b->GetBoard()[ver][i]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + ver;
             newHor = 'a' + i;
             newPos = "";
@@ -134,7 +132,6 @@ Move** Rook::Available_Move() {
     for (int i = ver + 1; i < 8; ++i)
     {
         if ((b->GetBoard()[i][hor]->Alias == ' ') || (b->GetBoard()[i][hor]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = "";
@@ -178,7 +175,6 @@ Move** Rook::Available_Move() {
     for (int i = ver - 1; i >= 0; --i)
     {
         if ((b->GetBoard()[i][hor]->Alias == ' ') || (b->GetBoard()[i][hor]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + i;
             newHor = 'a' + hor;
             newPos = "";

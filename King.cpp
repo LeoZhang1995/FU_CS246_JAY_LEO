@@ -206,7 +206,6 @@ Move** King::Available_Move() {
 	            if (((Rook*)(b->GetBoard()[ver][i]))->Moved || (b->GetBoard()[ver][i]->Side != Side)) {
 	                break;
 	            } else {
-	            	//TODO: get the real positions of king-rook switch
 		            newVer = '1' + ver;
 		            newHor = 'a' + (hor + 2);
 		            newPos = "";
@@ -249,7 +248,6 @@ Move** King::Available_Move() {
 	            if (((Rook*)(b->GetBoard()[ver][i]))->Moved || (b->GetBoard()[ver][i]->Side != Side)) {
 	                break;
 	            } else {
-	            	//TODO: get the real positions of king-rook switch
 		            newVer = '1' + ver;
 		            newHor = 'a' + (hor - 2);
 		            newPos = "";
@@ -292,7 +290,6 @@ Move** King::Available_Move() {
 	            if (((Rook*)(b->GetBoard()[ver][i]))->Moved || (b->GetBoard()[ver][i]->Side != Side)) {
 	                break;
 	            } else {
-	            	//TODO: get the real positions of king-rook switch
 		            newVer = '1' + (ver + 2);
 		            newHor = 'a' + hor;
 		            newPos = "";
@@ -335,7 +332,6 @@ Move** King::Available_Move() {
 	            if (((Rook*)(b->GetBoard()[ver][i]))->Moved || (b->GetBoard()[ver][i]->Side != Side)) {
 	                break;
 	            } else {
-	            	//TODO: get the real positions of king-rook switch
 		            newVer = '1' + (ver -2);
 		            newHor = 'a' + hor;
 		            newPos = "";

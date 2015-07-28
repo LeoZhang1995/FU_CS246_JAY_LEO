@@ -211,7 +211,6 @@ void Board::Make_Move(Move* A_Move) {
 			    }
 	    	}
 	    }
-		//TODO: checkmate, stalemate
 		string otherMessage;
 		if (v != NULL) {
 			checkmated = Checkmate();

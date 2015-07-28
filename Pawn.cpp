@@ -164,7 +164,6 @@ Move** Pawn::Available_Move() {
 	            curIndex++;
 	        }
 	    }
-	    //TODO: capture en passant
 	    newVerIndex = ver + 1;
 	    newHorIndex = hor - 1;
         newVer = '1' + newVerIndex;

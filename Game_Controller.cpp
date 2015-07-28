@@ -56,7 +56,6 @@ void Game_Controller::Interpreter(string A_String, string B_String, string C_Str
 			Player *p2 = new AI_Four("Black", s->GetBoard());
 			s->SetP2(p2);
 		}
-		//TODO: Other levels of AI
     } else if (A_String == "move") {
         if (s->GetBoard()->GetTurn() == 'w') {
         	if ((B_String != "") && (C_String != "")) {

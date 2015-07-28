@@ -47,7 +47,6 @@ Move** Bishop::Available_Move() {
     		break;
     	}
         if ((b->GetBoard()[ver + i][hor + i]->Alias == ' ') || (b->GetBoard()[ver + i][hor + i]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor + i);
             newPos = "";
@@ -94,7 +93,6 @@ Move** Bishop::Available_Move() {
     		break;
     	}
         if ((b->GetBoard()[ver + i][hor - i]->Alias == ' ') || (b->GetBoard()[ver + i][hor - i]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + (ver + i);
             newHor = 'a' + (hor - i);
             newPos = "";
@@ -141,7 +139,6 @@ Move** Bishop::Available_Move() {
     		break;
     	}
         if ((b->GetBoard()[ver - i][hor + i]->Alias == ' ') || (b->GetBoard()[ver - i][hor + i]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor + i);
             newPos = "";
@@ -188,7 +185,6 @@ Move** Bishop::Available_Move() {
     		break;
     	}
         if ((b->GetBoard()[ver - i][hor - i]->Alias == ' ') || (b->GetBoard()[ver - i][hor - i]->Alias == '_')) {
-            //TODO: checkmate, captured, invalid
             newVer = '1' + (ver - i);
             newHor = 'a' + (hor - i);
             newPos = "";
