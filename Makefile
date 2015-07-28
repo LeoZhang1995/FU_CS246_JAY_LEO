@@ -1,7 +1,7 @@
 all: pp9k
 
 pp9k: main.o Game_Controller.o Game_View.o Graphical_Display.o Window.o Text_Display.o Game_Setup.o AI_Four.o Pawn.o AI_One.o Player.o AI_Three.o Queen.o AI_Two.o Rook.o Bishop.o Human.o Black_Block.o King.o White_Block.o Board.o Knight.o Chess.o Move.o
-	g++ main.o Game_Controller.o Game_View.o Graphical_Display.o Window.o Text_Display.o Game_Setup.o AI_Four.o Pawn.o AI_One.o Player.o AI_Three.o Queen.o AI_Two.o Rook.o Bishop.o Human.o Black_Block.o King.o White_Block.o Board.o Knight.o Chess.o Move.o -o pp9k  -lX11
+	g++ main.o Game_Controller.o Game_View.o Graphical_Display.o Window.o Text_Display.o Game_Setup.o AI_Four.o Pawn.o AI_One.o Player.o AI_Three.o Queen.o AI_Two.o Rook.o Bishop.o Human.o Black_Block.o King.o White_Block.o Board.o Knight.o Chess.o Move.o -o pp9k -lX11
 
 main.o: main.cpp
 	g++ -c -g main.cpp
