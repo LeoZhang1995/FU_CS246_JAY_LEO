@@ -33,7 +33,18 @@
 
 int main() {
     Game_Controller *c = new Game_Controller();
-    Game_View *v = new Text_Display(c);
+    Game_View *v;
+    std::cout << "Do perfer Text Display(t) or Graphical_Display(g)? Enter 't' or 'g'." << std::endl;
+    char choice;
+    std::cin>>choice;
+    if (choice == 't')
+    {
+    	std::cout << "Text Display:"<<std::endl;
+    	v = new Text_Display(c);
+    } else {
+    	std::cout << "Graphical Display"<<std::endl;
+    	v = new Graphical_Display(c);
+    }
     Game_Setup *s = new Game_Setup();
     c->Setup(s);
     s->GetBoard()->SetView(v);

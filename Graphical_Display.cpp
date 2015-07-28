@@ -139,44 +139,51 @@ void Graphical_Display::Print(Chess*** Game_Board, std::string otherMessage) {
     change_line = true;
     change = true;
     std::string tmp="";
+    int ver=0;
+    int hor=0;
     for (int i=7; i>=0 ; i--) {
+        ver++;
         if (change_line){
             for (int j = 0; j < 8; ++j){
+                hor++;
                 if (change){
                     change = false;
-                    tmp = Game_Board[i][j]->Alias;
+                    tmp = Game_Board[j][i]->Alias;
                     if (tmp == "_") {
                         tmp = " ";
                     }
-                    w.drawBigString(((8-i)*50)+15,((j+1)*50)+35, tmp, Xwindow::Black);
+                    w.drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::Black);
                 }else{
                     change = true;
-                    tmp = Game_Board[i][j]->Alias;
+                    tmp = Game_Board[j][i]->Alias;
                     if (tmp == "_") {
                         tmp = " ";
                     }
-                    w.drawBigString(((8-i)*50)+15,((j+1)*50)+35, tmp, Xwindow::White);
+                    w.drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::White);
                 }
             }
+            hor=0;
             change_line = false;
         }else{
             for (int j = 0; j < 8; ++j){
+                hor++;
                 if (change){
                     change = false;
-                    tmp = Game_Board[i][j]->Alias;
+                    tmp = Game_Board[j][i]->Alias;
                     if (tmp == "_") {
                         tmp = " ";
                     }
-                    w.drawBigString(((7-i)*50)+15,(j*50)+35, tmp, Xwindow::White);
+                    w.drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::White);
                 }else{
                     change = true;
-                    tmp = Game_Board[i][j]->Alias;
+                    tmp = Game_Board[j][i]->Alias;
                     if (tmp == "_") {
                         tmp = " ";
                     }
-                    w.drawBigString(((7-i)*50)+15,(j*50)+35, tmp, Xwindow::Black);
+                    w.drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::Black);
                 }
             }
+            hor=0;
             change_line = true;
         }
     }//print Chess
@@ -247,9 +254,6 @@ void Graphical_Display::Print(Chess*** Game_Board, std::string otherMessage) {
     //string message = "Checkmate! " +  " Wins";
     
     //w.drawString(50, 450 + 25, message, Xwindow::Black);
-    
-    char c;
-    cin >> c;
     
     if (otherMessage != "") {
         std::cout<<otherMessage<<std::endl;
