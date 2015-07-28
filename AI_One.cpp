@@ -55,32 +55,6 @@ void AI_One::Make_Move(Move *A_Move){
     }
     delete [] available;
     b->Make_Move(moveChosen);
-//        
-//        
-//        
-// 	char chess_array[6]={'K','Q','B','R','N','P'};
-//    srand(time(NULL));                                   // initialize random seed
-//    int random_number = rand() % 6 + 1;
-// 	char RandomChess = chess_array[random_number];
-// 	if (RandomChess =='K')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='Q')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='B')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='R')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='N')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='P')
-//    {
-// 		/* code */
-// 	}
 }
 
 AI_One::AI_One(std::string side, Board *b): Side(side), b(b), Score(0) {}

@@ -32,6 +32,9 @@ void AI_Three::Make_Move(Move *A_Move){
     			singleIndex = 0;
     			++numChess;
     			singleAvailable = b->GetBoard()[i][j]->Available_Move();
+    			if (singleAvailable == NULL) {
+					continue;
+				}
     			while (singleAvailable[singleIndex] != NULL) {
     				available[curIndex] = new Move(singleAvailable[singleIndex]->Check, singleAvailable[singleIndex]->Origin, singleAvailable[singleIndex]->Destination, singleAvailable[singleIndex]->Captures, singleAvailable[singleIndex]->Captured);
     				delete singleAvailable[singleIndex];
@@ -45,33 +48,13 @@ void AI_Three::Make_Move(Move *A_Move){
     length = curIndex;
     srand(time(NULL));                                   // initialize random seed
     int random_number = rand() % length;
-    b->Make_Move(available[random_number]);
-//        
-//        
-//        
-// 	char chess_array[6]={'K','Q','B','R','N','P'};
-//    srand(time(NULL));                                   // initialize random seed
-//    int random_number = rand() % 6 + 1;
-// 	char RandomChess = chess_array[random_number];
-// 	if (RandomChess =='K')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='Q')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='B')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='R')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='N')
-// 	{
-// 		/* code */
-// 	}else if (RandomChess =='P')
-//    {
-// 		/* code */
-// 	}
+    Move* moveChosen = new Move(available[random_number]->Check, available[random_number]->Origin, available[random_number]->Destination, available[random_number]->Captures, available[random_number]->Captured);
+    for (int i = 0; i < length; ++i)
+    {
+    	delete available[i];
+    }
+    delete [] available;
+    b->Make_Move(moveChosen);
 }
 
 AI_Three::AI_Three(std::string side, Board *b): Side(side), b(b), Score(0) {}

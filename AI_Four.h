@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "Move.h"
+#include "Board.h"
 #include "Player.h"
 
 class AI_Four:public Player{

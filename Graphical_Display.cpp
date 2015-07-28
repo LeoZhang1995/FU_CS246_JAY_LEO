@@ -8,6 +8,9 @@
 
 #include "Graphical_Display.h"
 #include <iostream>
+#include <ostream>
+#include <istream>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -19,9 +22,14 @@ void Graphical_Display::Read_Command() {
     while (true) {
         std::cin>>command;
         if (cin.eof() || cin.fail()) {
-            cout << "Final Score:" << endl;
-            cout << "White: " << c->GetSetup()->GetP1()->GetScore() << endl;
-            cout << "Black: " << c->GetSetup()->GetP2()->GetScore() << endl;
+            std::ostringstream p1s, p2s;
+            p1s << c->GetSetup()->GetP1()->GetScore();
+            p2s << c->GetSetup()->GetP2()->GetScore();
+            string p1str(p1s.str());
+            string p2str(p2s.str());
+            w->drawString(50, 465, "Final Score:", Xwindow::Black);
+            w->drawString(50, 480, "White: " + p1str, Xwindow::Black);
+            w->drawString(50, 495, "Black: " + p2str, Xwindow::Black);
             break;
         }
         if (command == "game") {
@@ -29,6 +37,8 @@ void Graphical_Display::Read_Command() {
             std::cin>>command2;
             Type1 = command1;
             Type2 = command2;
+            delete w;
+            this->w = new Xwindow(500, 500);
             c->Interpreter(command, command1, command2, "");
         } else if (command == "move") {
             if (c->GetSetup()->GetBoard()->GetTurn() == 'w') {
@@ -133,106 +143,117 @@ void Graphical_Display::Print(Chess*** Game_Board, std::string otherMessage) {
             change_line = true;
         }//print Board
     }
-    change_line = true;
-    change = true;
-    std::string tmp="";
-    int ver=0;
-    int hor=0;
-    for (int i=7; i>=0 ; i--) {
-        ver++;
-        if (change_line){
-            for (int j = 0; j < 8; ++j){
-                hor++;
-                if (change){
-                    change = false;
-                    tmp = Game_Board[j][i]->Alias;
-                    if (tmp == "_") {
-                        tmp = " ";
+    if (Game_Board == NULL) {
+        w->drawString(50, 480, otherMessage, Xwindow::Black);
+    } else {
+        change_line = true;
+        change = true;
+        std::string tmp="";
+        int ver=0;
+        int hor=0;
+        for (int i=7; i>=0 ; i--) {
+            ver++;
+            if (change_line){
+                for (int j = 0; j < 8; ++j){
+                    hor++;
+                    if (change){
+                        change = false;
+                        tmp = Game_Board[i][j]->Alias;
+                        if (tmp == "_") {
+                            tmp = " ";
+                        }
+                        w->drawBigString((hor*50)+15,(ver*50)+35, tmp, Xwindow::Black);
+                    }else{
+                        change = true;
+                        tmp = Game_Board[i][j]->Alias;
+                        if (tmp == "_") {
+                            tmp = " ";
+                        }
+                        w->drawBigString((hor*50)+15,(ver*50)+35, tmp, Xwindow::White);
                     }
-                    w->drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::Black);
-                }else{
-                    change = true;
-                    tmp = Game_Board[j][i]->Alias;
-                    if (tmp == "_") {
-                        tmp = " ";
-                    }
-                    w->drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::White);
                 }
-            }
-            hor=0;
-            change_line = false;
-        }else{
-            for (int j = 0; j < 8; ++j){
-                hor++;
-                if (change){
-                    change = false;
-                    tmp = Game_Board[j][i]->Alias;
-                    if (tmp == "_") {
-                        tmp = " ";
+                hor=0;
+                change_line = false;
+            }else{
+                for (int j = 0; j < 8; ++j){
+                    hor++;
+                    if (change){
+                        change = false;
+                        tmp = Game_Board[i][j]->Alias;
+                        if (tmp == "_") {
+                            tmp = " ";
+                        }
+                        w->drawBigString((hor*50)+15,(ver*50)+35, tmp, Xwindow::White);
+                    }else{
+                        change = true;
+                        tmp = Game_Board[i][j]->Alias;
+                        if (tmp == "_") {
+                            tmp = " ";
+                        }
+                        w->drawBigString((hor*50)+15,(ver*50)+35, tmp, Xwindow::Black);
                     }
-                    w->drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::White);
-                }else{
-                    change = true;
-                    tmp = Game_Board[j][i]->Alias;
-                    if (tmp == "_") {
-                        tmp = " ";
-                    }
-                    w->drawBigString((ver*50)+15,(hor*50)+35, tmp, Xwindow::Black);
                 }
+                hor=0;
+                change_line = true;
             }
-            hor=0;
-            change_line = true;
         }
-    }
-    
-    w->fillRectangle(45, 45, 5, 410, Xwindow::Black);
-    
-    w->fillRectangle(45, 45, 410, 5, Xwindow::Black);
-    
-    w->fillRectangle(45, 450, 410, 5, Xwindow::Black);
-    
-    w->fillRectangle(450, 45, 5, 410, Xwindow::Black);
-    
-    string my_array1[8] = {"1","2","3","4","5","6","7","8"} ;
-    string my_array2[8] = {"a","b","c","d","e","f","g","h"};
-    
-    for (int i = 0; i < 8; ++i)
-    {
-        w->drawBigString(((i+1)*50)+15, 35, my_array2[i], Xwindow::Black);
-    }
-    
-    for (int i = 0; i < 8; ++i)
-    {
-        w->drawBigString(15, ((i+1)*50)+35, my_array1[i], Xwindow::Black);
-    }
-    
-    w->drawBigString(450 + 15, 50 + 35, "W", Xwindow::Black);
-    
-    w->drawBigString(450 + 15, 400 + 35, "b", Xwindow::Black);
-    
-    //string message = "Checkmate! " +  " Wins";
-    
-    //w.drawString(50, 450 + 25, message, Xwindow::Black);
-    
-    if (otherMessage != "") {
-        std::cout<<otherMessage<<std::endl;
+        
+        w->fillRectangle(45, 45, 5, 410, Xwindow::Black);
+        
+        w->fillRectangle(45, 45, 410, 5, Xwindow::Black);
+        
+        w->fillRectangle(45, 450, 410, 5, Xwindow::Black);
+        
+        w->fillRectangle(450, 45, 5, 410, Xwindow::Black);
+        
+        string my_array1[8] = {"8","7","6","5","4","3","2","1"};
+        string my_array2[8] = {"a","b","c","d","e","f","g","h"};
+        
+        for (int i = 0; i < 8; ++i)
+        {
+            w->drawBigString(((i+1)*50)+15, 35, my_array2[i], Xwindow::Black);
+        }
+        
+        for (int i = 0; i < 8; ++i)
+        {
+            w->drawBigString(15, ((i+1)*50)+35, my_array1[i], Xwindow::Black);
+        }
+        
+        w->drawBigString(450 + 15, 50 + 35, "b", Xwindow::Black);
+        
+        w->drawBigString(450 + 15, 400 + 35, "W", Xwindow::Black);
+        
+        //string message = "Checkmate! " +  " Wins";
+        
+        //w.drawString(50, 450 + 25, message, Xwindow::Black);
+        
+        if (otherMessage != "") {
+            w->drawString(50, 480, otherMessage, Xwindow::Black);
+        }
     }
 }
 
 void Graphical_Display::Checkmate(std::string side) {
     
-    //string message = "Checkmate! " + side +  " Wins";
-    //w.drawString(50, 450 + 25, message, Xwindow::Black);
+    string message = "Checkmate! " + side + " Wins";
+    w->drawString(50, 480, message, Xwindow::Black);
     
     c->End_Game();
 }
 
 void Graphical_Display::Stalemate() {
+
+    string message = "Stalemate!";
+    w->drawString(50, 480, message, Xwindow::Black);
+
     c->Stalemate();
 }
 
 Graphical_Display::Graphical_Display(Game_Controller *c) {
     this->c = c;
-    cout << "Xwindow" << endl;
     this->w = new Xwindow(500, 500);
+    string tmp = "By: Peining Zhang & Jiajun Zhou";
+    w->fillRectangle(0, 0, 500, 500, Xwindow::Brown);
+    w->drawBigString(120,200, "PP9K: Chess Game", Xwindow::White);
+    w->drawString(140,300, tmp, Xwindow::White);
 }
