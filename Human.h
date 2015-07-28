@@ -20,6 +20,8 @@ protected:
     Board *b;
 public:
     void Make_Move(Move* A_Move);
+    void IncreaseScore();
+    int GetScore();
     Move** Available_Move(std::string position);
     Human(std::string side, Board *b);
 };

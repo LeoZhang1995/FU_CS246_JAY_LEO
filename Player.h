@@ -20,6 +20,8 @@ protected:
     Board *b;
 public:
     virtual void Make_Move(Move* A_Move) = 0;
+    virtual void IncreaseScore() = 0;
+    virtual int GetScore() = 0;
     void Undo();
     void Surrender();
     virtual Move** Available_Move(std::string position) = 0;

@@ -9,6 +9,7 @@
 #include "Knight.h"
 #include <string>
 #include <stdio.h>
+#include <iostream>
 using namespace std;
 
 Knight::Knight(string side, string position) {
@@ -18,10 +19,17 @@ Knight::Knight(string side, string position) {
     this->Alias = (side == "White") ? 'N' : 'n';
 }
 
+Chess* Knight::CopyChess() {
+    Chess *chess = new Knight(Side, Position);
+    return chess;
+}
+
 Move** Knight::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
     Move** available = new Move*[9];
+    Move* test;
+    int testResult;
     for (int a = 0; a < 9; ++a)
     {
         available[a] = NULL;
@@ -42,27 +50,33 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
     newVerIndex = ver + 2;
@@ -74,27 +88,33 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
     newVerIndex = ver - 1;
@@ -106,27 +126,33 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
     newVerIndex = ver - 2;
@@ -138,27 +164,33 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
     newVerIndex = ver + 1;
@@ -170,27 +202,33 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
     newVerIndex = ver + 2;
@@ -202,27 +240,33 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
     newVerIndex = ver - 1;
@@ -234,27 +278,33 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
     newVerIndex = ver - 2;
@@ -266,30 +316,40 @@ Move** Knight::Available_Move() {
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, "", captured);
-            curIndex++;
-        } else {
-            if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-                captures = newPos + "Q";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-                captures = newPos + "R";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-                captures = newPos + "B";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-                captures = newPos + "N";
-            } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-                captures = newPos + "P";
+            test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
             }
+        } else {
+            captures = newPos;
             newVer = '1' + newVerIndex;
             newHor = 'a' + newHorIndex;
             newPos = "";
             newPos += newHor;
             newPos += newVer;
-            available[curIndex] = new Move(check, Position, newPos, captures, captured);
-            curIndex++;
+            test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+                test->Check = true;
+                available[curIndex] = test;
+                curIndex++;
+            } else if (testResult == 2) {
+                available[curIndex] = test;
+                curIndex++;
+            }
         }
     }
-    return available;
+    if (curIndex == 0) {
+        return NULL;
+    } else {
+        return available;
+    }
 }
 
 void Knight::SetBoard(Board *b) {

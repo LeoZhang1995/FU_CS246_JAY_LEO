@@ -18,6 +18,7 @@ protected:
     Board *b;
 public:
     Black_Block(std::string side, std::string position);
+    Chess* CopyChess();
     Move** Available_Move();
     void SetBoard(Board *b);
 };

@@ -9,6 +9,7 @@
 #include "Game_Setup.h"
 #include <string>
 #include <stdio.h>
+#include <iostream>
 using namespace std;
 
 Game_Setup::Game_Setup() {
@@ -26,12 +27,21 @@ Game_Setup::Game_Setup() {
 }
 
 void Game_Setup::Start_Game() {
-    b->v->Print(b->GetBoard(), "Game Starts!");
+    b->v->Print(b->GetBoard(), "");
 }
 
 void Game_Setup::Restart_Game() {
-	delete b;
-	this->Start_Game();
+	b->Restart_Game();
+    this->Start_Game();
+}
+
+void Game_Setup::End_Game() {
+	if (b->GetTurn() == 'b') {
+		p2->IncreaseScore();
+	} else if (b->GetTurn() == 'w') {
+		p1->IncreaseScore();
+	}
+	this->Restart_Game();
 }
 
 Board* Game_Setup::GetBoard() {

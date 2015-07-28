@@ -18,6 +18,11 @@ White_Block::White_Block(string side, string position) {
     this->Alias = ' ';
 }
 
+Chess* White_Block::CopyChess() {
+	Chess *chess = new White_Block(Side, Position);
+	return chess;
+}
+
 Move** White_Block::Available_Move() {return NULL;}
 
 void White_Block::SetBoard(Board *b) {

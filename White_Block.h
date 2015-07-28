@@ -18,6 +18,7 @@ protected:
     Board *b;
 public:
     White_Block(std::string side, std::string Position);
+    Chess* CopyChess();
     Move** Available_Move();
     void SetBoard(Board *b);
 };

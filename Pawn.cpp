@@ -20,10 +20,18 @@ Pawn::Pawn(string side, string position) {
     this->Alias = (side == "White") ? 'P' : 'p';
 }
 
+Chess* Pawn::CopyChess() {
+	Chess *chess = new Pawn(Side, Position);
+	((Pawn*)(chess))->MovingStatus = MovingStatus;
+	return chess;
+}
+
 Move** Pawn::Available_Move() {
     int ver = Position[1] - '1';
     int hor = Position[0] - 'a';
     Move** available = new Move*[5];
+    Move* test;
+    int testResult;
     for (int a = 0; a < 5; ++a)
     {
         available[a] = NULL;
@@ -31,11 +39,63 @@ Move** Pawn::Available_Move() {
     int curIndex = 0;
     bool check = false;
     bool captured = false;
-    string newPos;
+    string newPos, newPos_2;
     int newVerIndex, newHorIndex;
-    char newVer, newHor;
+    char newVer, newHor, newVer_2, newHor_2;
     string captures;
     if (Side == "White") {
+    	if (ver == 4) {
+    		newVerIndex = ver;
+	    	newHorIndex = hor + 1;
+    		if ((newHorIndex < 8) && (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p') &&
+    			(((Pawn*)(b->GetBoard()[newVerIndex][newHorIndex]))->MovingStatus == 2)) {
+    			newVer = '1' + newVerIndex + 1;
+		        newHor = 'a' + newHorIndex;
+		        newVer_2 = '1' + newVerIndex;
+		        newHor_2 = 'a' + newHorIndex;
+		        newPos = "";
+		        newPos_2 = "";
+	            newPos += newHor;
+	            newPos += newVer;
+	            newPos_2 += newHor_2;
+	            newPos_2 += newVer_2;
+    			test = new Move(check, Position, newPos, newPos_2, captured);
+	            testResult = b->SimulateCheck(test);
+	            if (testResult == 1) {
+	            	test->Check = true;
+	            	available[curIndex] = test;
+		            curIndex++;
+	            } else if (testResult == 2) {
+		            available[curIndex] = test;
+		            curIndex++;
+		        }
+    		}
+    		newVerIndex = ver;
+	    	newHorIndex = hor - 1;
+    		if ((newHorIndex >= 0) && (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p') &&
+    			(((Pawn*)(b->GetBoard()[newVerIndex][newHorIndex]))->MovingStatus == 2)) {
+    			newVer = '1' + newVerIndex + 1;
+		        newHor = 'a' + newHorIndex;
+		        newVer_2 = '1' + newVerIndex;
+		        newHor_2 = 'a' + newHorIndex;
+		        newPos = "";
+		        newPos_2 = "";
+	            newPos += newHor;
+	            newPos += newVer;
+	            newPos_2 += newHor_2;
+	            newPos_2 += newVer_2;
+    			test = new Move(check, Position, newPos, newPos_2, captured);
+	            testResult = b->SimulateCheck(test);
+	            if (testResult == 1) {
+	            	test->Check = true;
+	            	available[curIndex] = test;
+		            curIndex++;
+	            } else if (testResult == 2) {
+		            available[curIndex] = test;
+		            curIndex++;
+		        }
+    		}
+    	}
 	    newVerIndex = ver + 1;
 	    newHorIndex = hor;
 	    if ((newVerIndex < 8) && 
@@ -46,8 +106,16 @@ Move** Pawn::Available_Move() {
 	        newPos = "";
             newPos += newHor;
             newPos += newVer;
-	        available[curIndex] = new Move(check, Position, newPos, "", captured);
-	        curIndex++;
+	        test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+            	test->Check = true;
+            	available[curIndex] = test;
+	            curIndex++;
+            } else if (testResult == 2) {
+	            available[curIndex] = test;
+	            curIndex++;
+	        }
 	    }
 	    if (MovingStatus == 0) {
 		    newVerIndex = ver + 2;
@@ -62,8 +130,16 @@ Move** Pawn::Available_Move() {
 	            newPos = "";
 	            newPos += newHor;
 	            newPos += newVer;
-	            available[curIndex] = new Move(check, Position, newPos, "", captured);
-	            curIndex++;
+	            test = new Move(check, Position, newPos, "", captured);
+	            testResult = b->SimulateCheck(test);
+	            if (testResult == 1) {
+	            	test->Check = true;
+	            	available[curIndex] = test;
+		            curIndex++;
+	            } else if (testResult == 2) {
+		            available[curIndex] = test;
+		            curIndex++;
+		        }
 		    }
 		}
 	    newVerIndex = ver + 1;
@@ -76,19 +152,17 @@ Move** Pawn::Available_Move() {
 	    if ((newVerIndex < 8) && (newHorIndex < 8) &&
 	    	(b->GetBoard()[newVerIndex][newHorIndex]->Side != "") &&
             (b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
-	        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-	            captures = newPos + "Q";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-	            captures = newPos + "R";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-	            captures = newPos + "B";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-	            captures = newPos + "N";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-	            captures = newPos + "P";
+	        captures = newPos;
+	        test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+            	test->Check = true;
+            	available[curIndex] = test;
+	            curIndex++;
+            } else if (testResult == 2) {
+	            available[curIndex] = test;
+	            curIndex++;
 	        }
-	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
-	        curIndex++;
 	    }
 	    //TODO: capture en passant
 	    newVerIndex = ver + 1;
@@ -101,21 +175,71 @@ Move** Pawn::Available_Move() {
 	    if ((newVerIndex < 8) && (newHorIndex >= 0) &&
 	    	(b->GetBoard()[newVerIndex][newHorIndex]->Side != "") &&
 	    	(b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
-	        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-	            captures = newPos + "Q";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-	            captures = newPos + "R";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-	            captures = newPos + "B";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-	            captures = newPos + "N";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-	            captures = newPos + "P";
+	        captures = newPos;
+	        test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+            	test->Check = true;
+            	available[curIndex] = test;
+	            curIndex++;
+            } else if (testResult == 2) {
+	            available[curIndex] = test;
+	            curIndex++;
 	        }
-	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
-	        curIndex++;
 	    }
 	} else {
+		if (ver == 3) {
+    		newVerIndex = ver;
+	    	newHorIndex = hor + 1;
+    		if ((newHorIndex < 8) && (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') &&
+    			(((Pawn*)(b->GetBoard()[newVerIndex][newHorIndex]))->MovingStatus == 2)) {
+    			newVer = '1' + newVerIndex - 1;
+		        newHor = 'a' + newHorIndex;
+		        newVer_2 = '1' + newVerIndex;
+		        newHor_2 = 'a' + newHorIndex;
+		        newPos = "";
+		        newPos_2 = "";
+	            newPos += newHor;
+	            newPos += newVer;
+	            newPos_2 += newHor_2;
+	            newPos_2 += newVer_2;
+    			test = new Move(check, Position, newPos, newPos_2, captured);
+	            testResult = b->SimulateCheck(test);
+	            if (testResult == 1) {
+	            	test->Check = true;
+	            	available[curIndex] = test;
+		            curIndex++;
+	            } else if (testResult == 2) {
+		            available[curIndex] = test;
+		            curIndex++;
+		        }
+    		}
+    		newVerIndex = ver;
+	    	newHorIndex = hor - 1;
+    		if ((newHorIndex >= 0) && (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') &&
+    			(((Pawn*)(b->GetBoard()[newVerIndex][newHorIndex]))->MovingStatus == 2)) {
+    			newVer = '1' + newVerIndex - 1;
+		        newHor = 'a' + newHorIndex;
+		        newVer_2 = '1' + newVerIndex;
+		        newHor_2 = 'a' + newHorIndex;
+		        newPos = "";
+		        newPos_2 = "";
+	            newPos += newHor;
+	            newPos += newVer;
+	            newPos_2 += newHor_2;
+	            newPos_2 += newVer_2;
+    			test = new Move(check, Position, newPos, newPos_2, captured);
+	            testResult = b->SimulateCheck(test);
+	            if (testResult == 1) {
+	            	test->Check = true;
+	            	available[curIndex] = test;
+		            curIndex++;
+	            } else if (testResult == 2) {
+		            available[curIndex] = test;
+		            curIndex++;
+		        }
+    		}
+    	}
 		newVerIndex = ver - 1;
 	    newHorIndex = hor;
 	    if ((newVerIndex >= 0) && 
@@ -126,8 +250,16 @@ Move** Pawn::Available_Move() {
 	        newPos = "";
             newPos += newHor;
             newPos += newVer;
-	        available[curIndex] = new Move(check, Position, newPos, "", captured);
-	        curIndex++;
+	        test = new Move(check, Position, newPos, "", captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+            	test->Check = true;
+            	available[curIndex] = test;
+	            curIndex++;
+            } else if (testResult == 2) {
+	            available[curIndex] = test;
+	            curIndex++;
+	        }
 	    }
 	    if (MovingStatus == 0) {
 		    newVerIndex = ver - 2;
@@ -142,8 +274,16 @@ Move** Pawn::Available_Move() {
 	            newPos = "";
 	            newPos += newHor;
 	            newPos += newVer;
-	            available[curIndex] = new Move(check, Position, newPos, "", captured);
-	            curIndex++;
+	            test = new Move(check, Position, newPos, "", captured);
+	            testResult = b->SimulateCheck(test);
+	            if (testResult == 1) {
+	            	test->Check = true;
+	            	available[curIndex] = test;
+		            curIndex++;
+	            } else if (testResult == 2) {
+		            available[curIndex] = test;
+		            curIndex++;
+		        }
 		    }
 		}
 	    newVerIndex = ver - 1;
@@ -156,19 +296,17 @@ Move** Pawn::Available_Move() {
 	    if ((newVerIndex >= 0) && (newHorIndex < 8) &&
 	    	(b->GetBoard()[newVerIndex][newHorIndex]->Side != "") &&
 	    	(b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
-	        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-	            captures = newPos + "Q";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-	            captures = newPos + "R";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-	            captures = newPos + "B";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-	            captures = newPos + "N";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-	            captures = newPos + "P";
+	        captures = newPos;
+	        test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+            	test->Check = true;
+            	available[curIndex] = test;
+	            curIndex++;
+            } else if (testResult == 2) {
+	            available[curIndex] = test;
+	            curIndex++;
 	        }
-	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
-	        curIndex++;
 	    }
 	    newVerIndex = ver - 1;
 	    newHorIndex = hor - 1;
@@ -180,22 +318,24 @@ Move** Pawn::Available_Move() {
 	    if ((newVerIndex >= 0) && (newHorIndex >= 0) &&
 	    	(b->GetBoard()[newVerIndex][newHorIndex]->Side != "") &&
 	    	(b->GetBoard()[newVerIndex][newHorIndex]->Side != Side)) {
-	        if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'Q') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'q')) {
-	            captures = newPos + "Q";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'R') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'r')) {
-	            captures = newPos + "R";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'B') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'b')) {
-	            captures = newPos + "B";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'N') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'n')) {
-	            captures = newPos + "N";
-	        } else if ((b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'P') || (b->GetBoard()[newVerIndex][newHorIndex]->Alias == 'p')) {
-	            captures = newPos + "P";
+	        captures = newPos;
+	        test = new Move(check, Position, newPos, captures, captured);
+            testResult = b->SimulateCheck(test);
+            if (testResult == 1) {
+            	test->Check = true;
+            	available[curIndex] = test;
+	            curIndex++;
+            } else if (testResult == 2) {
+	            available[curIndex] = test;
+	            curIndex++;
 	        }
-	        available[curIndex] = new Move(check, Position, newPos, captures, captured);
-	        curIndex++;
 	    }
 	}
-    return available;
+    if (curIndex == 0) {
+    	return NULL;
+    } else {
+    	return available;
+    }
 }
 
 void Pawn::SetBoard(Board *b) {

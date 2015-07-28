@@ -22,12 +22,18 @@ protected:
 public:
     Game_View *v;
     void SetView(Game_View *v);
+    bool Check(char alias);
     bool Checkmate();
     bool Stalemate();
     void Make_Move(Move* A_Move);
     void Illegal_Move();
     Chess*** GetBoard();
+    void SetBoard(Chess*** nb);
+    int SimulateCheck(Move* A_Move);
     char GetTurn();
+    void SetTurn(char turn);
+    void UpdatePawn(std::string updateTo);
+    void Restart_Game();
     Board(Game_View *v);
     ~Board();
 };
