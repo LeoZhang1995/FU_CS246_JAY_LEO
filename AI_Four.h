@@ -16,12 +16,12 @@
 class AI_Four:public Player{
 protected:
     std::string Side;
-    int Score;
+    float Score;
     Board *b;
 public:
     void Make_Move(Move *A_Move);
-    void IncreaseScore();
-    int GetScore();
+    void IncreaseScore(float point);
+    float GetScore();
     std::string GetSide();
     Move** Available_Move(std::string position);
     AI_Four(std::string side, Board *b);

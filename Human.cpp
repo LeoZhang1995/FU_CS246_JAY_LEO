@@ -68,11 +68,11 @@ Move** Human::Available_Move(std::string position) {
     return b->GetBoard()[ver][hor]->Available_Move();
 }
 
-void Human::IncreaseScore() {
-	Score++;
+void Human::IncreaseScore(float point) {
+	Score += point;
 }
 
-int Human::GetScore() {
+float Human::GetScore() {
 	return Score;
 }
 

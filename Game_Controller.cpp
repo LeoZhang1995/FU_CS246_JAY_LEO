@@ -94,6 +94,10 @@ void Game_Controller::End_Game() {
     s->End_Game();
 }
 
+void Game_Controller::Stalemate() {
+	s->Stalemate();
+}
+
 void Game_Controller::Setup_Done() {
 	s->Setup_Done();
 }

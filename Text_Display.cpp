@@ -123,4 +123,9 @@ void Text_Display::Checkmate(std::string side) {
 	c->End_Game();
 }
 
+void Text_Display::Stalemate() {
+	cout << "Stalemate!" << endl;
+	c->Stalemate();
+}
+
 Text_Display::Text_Display(Game_Controller *c): c(c) {}

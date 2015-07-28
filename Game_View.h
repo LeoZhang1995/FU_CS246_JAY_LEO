@@ -25,6 +25,7 @@ public:
     virtual void Setup_Done() = 0;
     virtual void Print(Chess*** Game_Board, std::string otherMessage) = 0;
     virtual void Checkmate(std::string side) = 0;
+    virtual void Stalemate() = 0;
 };
 
 #endif /* defined(__Chess_Project__Game_View__) */

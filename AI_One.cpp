@@ -19,7 +19,6 @@ void AI_One::Make_Move(Move *A_Move){
     {
     	available[i] = NULL;
     }
-    cout << "FUCK" << endl;
     int curIndex = 0;
     int singleIndex = 0;
     Move** singleAvailable;
@@ -88,11 +87,11 @@ AI_One::AI_One(std::string side, Board *b): Side(side), b(b), Score(0) {}
 
 Move** AI_One::Available_Move(std::string position) { return NULL; }
 
-void AI_One::IncreaseScore() {
-	Score++;
+void AI_One::IncreaseScore(float point) {
+	Score += point;
 }
 
-int AI_One::GetScore() {
+float AI_One::GetScore() {
 	return Score;
 }
 

@@ -37,20 +37,26 @@ void Game_Setup::Restart_Game() {
 
 void Game_Setup::End_Game() {
 	if (b->GetTurn() == 'b') {
-		p2->IncreaseScore();
+		p2->IncreaseScore(1);
 	} else if (b->GetTurn() == 'w') {
-		p1->IncreaseScore();
+		p1->IncreaseScore(1);
 	}
+	this->Restart_Game();
+}
+
+void Game_Setup::Stalemate() {
+	p1->IncreaseScore(0.5);
+	p2->IncreaseScore(0.5);
 	this->Restart_Game();
 }
 
 void Game_Setup::Surrender() {
 	string side = (b->GetTurn() == 'w') ? "White" : "Black";
 	if (side == "White") {
-		p2->IncreaseScore();
+		p2->IncreaseScore(1);
 		b->Surrender("White");
 	} else {
-		p1->IncreaseScore();
+		p1->IncreaseScore(1);
 		b->Surrender("Black");
 	}
 	this->Restart_Game();

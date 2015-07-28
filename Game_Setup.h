@@ -27,6 +27,7 @@ protected:
 public:
     void Start_Game();
     void End_Game();
+    void Stalemate();
     void Restart_Game();
     void Surrender();
     void SetP1(Player *p1);

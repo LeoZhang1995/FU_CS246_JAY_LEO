@@ -22,6 +22,7 @@ public:
     void Interpreter(std::string A_String, std::string B_String, std::string C_String, std::string D_String);
     void Setup(Game_Setup *s);
     void End_Game();
+    void Stalemate();
     void Setup_Done();
     Game_Setup* GetSetup();
     Game_Controller();

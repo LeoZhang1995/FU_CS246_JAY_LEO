@@ -16,12 +16,12 @@
 class Player{
 protected:
     std::string Side;
-    int Score;
+    float Score;
     Board *b;
 public:
     virtual void Make_Move(Move* A_Move) = 0;
-    virtual void IncreaseScore() = 0;
-    virtual int GetScore() = 0;
+    virtual void IncreaseScore(float point) = 0;
+    virtual float GetScore() = 0;
     virtual std::string GetSide() = 0;
     void Undo();
     void Surrender();

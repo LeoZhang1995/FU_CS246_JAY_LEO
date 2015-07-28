@@ -32,6 +32,9 @@ void AI_Two::Make_Move(Move *A_Move){
     			singleIndex = 0;
     			++numChess;
     			singleAvailable = b->GetBoard()[i][j]->Available_Move();
+    			if (singleAvailable == NULL) {
+					continue;
+				}
     			while (singleAvailable[singleIndex] != NULL) {
     				available[curIndex] = new Move(singleAvailable[singleIndex]->Check, singleAvailable[singleIndex]->Origin, singleAvailable[singleIndex]->Destination, singleAvailable[singleIndex]->Captures, singleAvailable[singleIndex]->Captured);
     				delete singleAvailable[singleIndex];
@@ -45,7 +48,13 @@ void AI_Two::Make_Move(Move *A_Move){
     length = curIndex;
     srand(time(NULL));                                   // initialize random seed
     int random_number = rand() % length;
-    b->Make_Move(available[random_number]);
+    Move* moveChosen = new Move(available[random_number]->Check, available[random_number]->Origin, available[random_number]->Destination, available[random_number]->Captures, available[random_number]->Captured);
+    for (int i = 0; i < length; ++i)
+    {
+    	delete available[i];
+    }
+    delete [] available;
+    b->Make_Move(moveChosen);
 //        
 //        
 //        
@@ -78,11 +87,11 @@ AI_Two::AI_Two(std::string side, Board *b): Side(side), b(b), Score(0) {}
 
 Move** AI_Two::Available_Move(std::string position) { return NULL; }
 
-void AI_Two::IncreaseScore() {
-	Score++;
+void AI_Two::IncreaseScore(float point) {
+	Score += point;
 }
 
-int AI_Two::GetScore() {
+float AI_Two::GetScore() {
 	return Score;
 }
 

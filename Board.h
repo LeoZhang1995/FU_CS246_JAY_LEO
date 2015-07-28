@@ -24,7 +24,6 @@ public:
     void SetView(Game_View *v);
     bool Check(char alias);
     bool Checkmate();
-    bool Stalemate();
     void Make_Move(Move* A_Move);
     void Illegal_Move();
     Chess*** GetBoard();

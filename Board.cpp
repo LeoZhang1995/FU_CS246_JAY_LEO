@@ -213,44 +213,59 @@ void Board::Make_Move(Move* A_Move) {
 	    }
 		//TODO: checkmate, stalemate
 		string otherMessage;
+		if (v != NULL) {
+			checkmated = Checkmate();
+		}
 		if (Turn == 'w') {
 			if (up) {
 				checked = Check('k');
 			}
 			if (checked) {
-				checkmated = Checkmate();
-				if (checkmated) {
-					if (v != NULL) {
+				if (v != NULL) {
+					if (checkmated) {
 						v->Print(Game_Board, otherMessage);
 						v->Checkmate("White");
+					} else {
+						otherMessage = "Black is in checked.";
 					}
-				} else {
-					otherMessage = "Black is in checked.";
+				}
+			} else {
+				if (v != NULL) {
+					if (checkmated) {
+						v->Print(Game_Board, otherMessage);
+						v->Stalemate();
+					}
 				}
 			}
-			if (!checkmated) {
-				if (v != NULL) {
+			if (v != NULL) {
+				if (!checkmated) {
 					v->Print(Game_Board, otherMessage);
+					Turn = 'b';
 				}
-				Turn = 'b';
 			}
 		} else {
 			if (up) {
 				checked = Check('K');
 			}
 			if (checked) {
-				checkmated = Checkmate();
-				if (checkmated) {
-					if (v != NULL) {
+				if (v != NULL) {
+					if (checkmated) {
 						v->Print(Game_Board, otherMessage);
 						v->Checkmate("Black");
+					} else {
+						otherMessage = "White is in checked.";
 					}
-				} else {
-					otherMessage = "White is in checked.";
+				}
+			} else {
+				if (v != NULL) {
+					if (checkmated) {
+						v->Print(Game_Board, otherMessage);
+						v->Stalemate();
+					}
 				}
 			}
-			if (!checkmated) {
-				if (v != NULL) {
+			if (v != NULL) {
+				if (!checkmated) {
 					v->Print(Game_Board, otherMessage);
 				}
 				Turn = 'w';
@@ -764,10 +779,8 @@ int Board::SimulateCheck(Move* A_Move) {
 }
 
 void Board::UpdatePawn(string updateTo) {
-	cout << updateTo << endl;
 	char ver, hor;
 	string pos = "";
-	cout << Turn << endl;
 	if (Turn == 'w') {
 		for (int i = 0; i < 8; ++i)
 		{
@@ -815,7 +828,6 @@ void Board::UpdatePawn(string updateTo) {
 			}
 		}
 	}
-	cout << pos << endl;
 }
 
 bool Board::Checkmate() {
@@ -829,10 +841,9 @@ bool Board::Checkmate() {
 				if (Game_Board[i][j]->Side == "Black") {
 					available = Game_Board[i][j]->Available_Move();
 					if (available != NULL) {
-						delete available;
+						delete [] available;
+						Turn = 'w';
 						return false;
-					} else {
-						delete available;
 					}
 				}
 			}
@@ -847,10 +858,9 @@ bool Board::Checkmate() {
 				if (Game_Board[i][j]->Side == "White") {
 					available = Game_Board[i][j]->Available_Move();
 					if (available != NULL) {
-						delete available;
+						delete [] available;
+						Turn = 'b';
 						return false;
-					} else {
-						delete available;
 					}
 				}
 			}
@@ -995,6 +1005,7 @@ void Board::Setup_Done() {
 			}
 		}
 	}
+	v->Print(Game_Board, "");
 }
 
 Board::~Board() {

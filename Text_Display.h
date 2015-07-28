@@ -27,6 +27,7 @@ public:
     void Setup_Done();
     void Print(Chess*** Game_Board, std::string otherMessage);
     void Checkmate(std::string side);
+    void Stalemate();
     Text_Display(Game_Controller *c);
 };
 

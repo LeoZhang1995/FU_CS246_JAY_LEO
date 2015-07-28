@@ -78,11 +78,11 @@ AI_Three::AI_Three(std::string side, Board *b): Side(side), b(b), Score(0) {}
 
 Move** AI_Three::Available_Move(std::string position) { return NULL; }
 
-void AI_Three::IncreaseScore() {
-	Score++;
+void AI_Three::IncreaseScore(float point) {
+	Score += point;
 }
 
-int AI_Three::GetScore() {
+float AI_Three::GetScore() {
 	return Score;
 }
 
