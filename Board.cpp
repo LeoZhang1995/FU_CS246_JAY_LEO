@@ -764,8 +764,10 @@ int Board::SimulateCheck(Move* A_Move) {
 }
 
 void Board::UpdatePawn(string updateTo) {
+	cout << updateTo << endl;
 	char ver, hor;
 	string pos = "";
+	cout << Turn << endl;
 	if (Turn == 'w') {
 		for (int i = 0; i < 8; ++i)
 		{
@@ -813,6 +815,7 @@ void Board::UpdatePawn(string updateTo) {
 			}
 		}
 	}
+	cout << pos << endl;
 }
 
 bool Board::Checkmate() {

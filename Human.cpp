@@ -75,3 +75,7 @@ void Human::IncreaseScore() {
 int Human::GetScore() {
 	return Score;
 }
+
+string Human::GetSide() {
+	return Side;
+}

@@ -22,6 +22,7 @@ public:
     void Make_Move(Move* A_Move);
     void IncreaseScore();
     int GetScore();
+    std::string GetSide();
     Move** Available_Move(std::string position);
     Human(std::string side, Board *b);
 };

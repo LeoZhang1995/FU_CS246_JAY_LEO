@@ -19,9 +19,11 @@ protected:
     int Score;
     Board *b;
 public:
-    void Make_move(Move *A_Move);
+    void Make_Move(Move *A_Move);
+    void IncreaseScore();
+    int GetScore();
+    std::string GetSide();
     Move** Available_Move(std::string position);
-    void Suggest_move();
     AI_One(std::string side, Board *b);
 };
 
