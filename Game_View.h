@@ -21,6 +21,8 @@ protected:
 public:
     virtual void Read_Command() = 0;
     virtual void Read_One_Command() = 0;
+    virtual void Read_Setup() = 0;
+    virtual void Setup_Done() = 0;
     virtual void Print(Chess*** Game_Board, std::string otherMessage) = 0;
     virtual void Checkmate(std::string side) = 0;
 };

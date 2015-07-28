@@ -28,8 +28,12 @@ public:
     void Start_Game();
     void End_Game();
     void Restart_Game();
+    void Surrender();
     void SetP1(Player *p1);
     void SetP2(Player *p2);
+    void Board_Setup();
+    void ModifyBoard(std::string A_String, std::string B_String, std::string C_String, std::string D_String);
+    void Setup_Done();
     Player* GetP1();
     Player* GetP2();
     Board* GetBoard();

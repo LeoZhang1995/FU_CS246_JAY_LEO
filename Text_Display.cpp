@@ -29,8 +29,35 @@ void Text_Display::Read_Command(){
         	std::cin>>command1;
             std::cin>>command2;
             c->Interpreter(command, command1, command2, "");
+        } else if (command == "resign") {
+            c->Interpreter(command, "", "", "");
+        } else if (command == "setup") {
+        	c->Interpreter(command, "", "", "");
         }
     }
+}
+
+void Text_Display::Read_Setup() {
+	string command1, command2, command3;
+	while (cin >> command1) {
+		if (command1 == "+") {
+			cin >> command2 >> command3;
+			c->Interpreter(command1, command2, command3, "");
+		} else if (command1 == "-") {
+			cin >> command2;
+			c->Interpreter(command1, command2, "", "");
+		} else if (command1 == "=") {
+			cin >> command2;
+			c->Interpreter(command1, command2, "", "");
+		} else if (command1 == "done") {
+			break;
+		}
+	}
+	c->Interpreter("done", "", "", "");
+}
+
+void Text_Display::Setup_Done() {
+	c->Setup_Done();
 }
 
 void Text_Display::Read_One_Command(){
@@ -43,14 +70,16 @@ void Text_Display::Read_One_Command(){
 }
 
 void Text_Display::Print(Chess*** Game_Board, std::string otherMessage) {
-    for (int i=7; i>=0 ; i--) {
-        std::cout<<i+1<<" ";
-        for (int j=0; j<=7; j++) {
-            std::cout<<Game_Board[i][j]->Alias;
-        }
-        std::cout<<std::endl;
-    }
-    std::cout<<std::endl<<"  abcdefgh"<<std::endl;
+    if (Game_Board != NULL) {
+	    for (int i=7; i>=0 ; i--) {
+	        std::cout<<i+1<<" ";
+	        for (int j=0; j<=7; j++) {
+	            std::cout<<Game_Board[i][j]->Alias;
+	        }
+	        std::cout<<std::endl;
+	    }
+	    std::cout<<std::endl<<"  abcdefgh"<<std::endl;
+	}
     if (otherMessage != "") {
 		std::cout<<otherMessage<<std::endl;
 	}
